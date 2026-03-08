@@ -1,0 +1,244 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "cart": "Cart",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero": {
+      "title": "Linces'CKF",
+      "subtitle": "Premium Silk Garments",
+      "description": "Discover the finest silk clothing, handcrafted with passion and precision. Elevate your wardrobe with timeless elegance.",
+      "shopNow": "Shop Now",
+      "learnMore": "Learn More"
+    },
+    "featured": {
+      "title": "Featured Products",
+      "viewAll": "View All Products"
+    },
+    "values": {
+      "title": "Why Choose Linces'CKF",
+      "quality": {
+        "title": "Premium Quality",
+        "description": "100% authentic silk, sourced from the finest suppliers worldwide"
+      },
+      "craftsmanship": {
+        "title": "Expert Craftsmanship",
+        "description": "Each piece is meticulously crafted by skilled artisans"
+      },
+      "sustainability": {
+        "title": "Sustainable",
+        "description": "Eco-friendly production methods that respect our planet"
+      }
+    }
+  },
+  "products": {
+    "title": "Our Products",
+    "loading": "Loading products...",
+    "error": "Failed to load products. Please try again.",
+    "noProducts": "No products available at the moment.",
+    "addToCart": "Add to Cart",
+    "viewDetails": "View Details",
+    "price": "Price",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock"
+  },
+  "productDetails": {
+    "loading": "Loading product details...",
+    "error": "Failed to load product details.",
+    "addToCart": "Add to Cart",
+    "description": "Description",
+    "specifications": "Specifications",
+    "material": "Material",
+    "careInstructions": "Care Instructions",
+    "backToProducts": "Back to Products"
+  },
+  "services": {
+    "title": "B2B Manufacturing Services",
+    "subtitle": "Partner with us for premium silk garment manufacturing",
+    "description": "We offer comprehensive manufacturing services for brands looking to create high-quality silk products. From design consultation to final production, we handle every step with expertise and care.",
+    "features": {
+      "title": "Our Services",
+      "design": {
+        "title": "Design Consultation",
+        "description": "Work with our design team to bring your vision to life"
+      },
+      "production": {
+        "title": "Full-Scale Production",
+        "description": "State-of-the-art facilities for efficient, high-quality manufacturing"
+      },
+      "quality": {
+        "title": "Quality Control",
+        "description": "Rigorous quality checks at every stage of production"
+      },
+      "logistics": {
+        "title": "Logistics Support",
+        "description": "Seamless delivery to your location worldwide"
+      }
+    },
+    "quote": {
+      "title": "Request a Quote",
+      "companyName": "Company Name",
+      "contactPerson": "Contact Person",
+      "email": "Email",
+      "phone": "Phone",
+      "quantity": "Estimated Quantity",
+      "description": "Project Description",
+      "submit": "Submit Request",
+      "success": "Your quote request has been submitted successfully!",
+      "error": "Failed to submit quote request. Please try again."
+    }
+  },
+  "about": {
+    "title": "About Linces'CKF",
+    "story": {
+      "title": "Our Story",
+      "content": "Founded with a passion for luxury textiles, Linces'CKF has been creating premium silk garments that blend traditional craftsmanship with modern design. Every piece tells a story of dedication, quality, and timeless elegance."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "content": "To provide the finest silk garments while maintaining sustainable practices and supporting artisan communities worldwide."
+    },
+    "values": {
+      "title": "Our Values",
+      "quality": "Uncompromising Quality",
+      "sustainability": "Environmental Responsibility",
+      "craftsmanship": "Artisan Craftsmanship",
+      "integrity": "Business Integrity"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you",
+    "email": "Email",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "address": "Address",
+    "hours": "Business Hours",
+    "hoursValue": "Monday - Friday: 9:00 AM - 6:00 PM",
+    "form": {
+      "title": "Send us a message",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Message sent successfully!",
+      "error": "Failed to send message. Please try again."
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "continueShopping": "Continue Shopping",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "update": "Update",
+    "itemAdded": "Item added to cart!"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "success": "Order Placed Successfully!",
+    "message": "Thank you for your purchase. Your order has been received and is being processed.",
+    "orderNumber": "Order Number",
+    "continueShopping": "Continue Shopping"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Login",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Register here",
+      "error": "Invalid credentials. Please try again.",
+      "success": "Login successful!"
+    },
+    "register": {
+      "title": "Register",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Register",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Login here",
+      "error": "Registration failed. Please try again.",
+      "passwordMismatch": "Passwords do not match.",
+      "success": "Registration successful!"
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Login",
+      "error": "Invalid admin credentials."
+    },
+    "products": {
+      "title": "Product Management",
+      "addNew": "Add New Product",
+      "edit": "Edit",
+      "delete": "Delete",
+      "confirmDelete": "Are you sure you want to delete this product?",
+      "noProducts": "No products found.",
+      "deleteSuccess": "Product deleted successfully.",
+      "deleteError": "Failed to delete product."
+    },
+    "addProduct": {
+      "title": "Add New Product",
+      "name": "Product Name",
+      "description": "Description",
+      "price": "Price",
+      "image": "Image URL",
+      "category": "Category",
+      "stock": "Stock Quantity",
+      "submit": "Add Product",
+      "cancel": "Cancel",
+      "success": "Product added successfully!",
+      "error": "Failed to add product."
+    },
+    "editProduct": {
+      "title": "Edit Product",
+      "loading": "Loading product...",
+      "submit": "Update Product",
+      "cancel": "Cancel",
+      "success": "Product updated successfully!",
+      "error": "Failed to update product."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "footer": {
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "copyright": "© 2024 Linces'CKF. All rights reserved.",
+    "followUs": "Follow Us"
+  }
+}
