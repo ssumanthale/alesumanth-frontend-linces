@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Globe } from 'lucide-react';
+import { ShoppingCart, Menu, X, Globe, Package, FileText } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
+import UserMenu from './UserMenu';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { t, language, toggleLanguage } = useLanguage();
-  const { isAuthenticated, logout, isAdmin } = useAuth();
+  const { isAuthenticated, logout, isAdmin, user } = useAuth();
   const { getCartItemsCount } = useCart();
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -55,32 +56,52 @@ const Navigation = () => {
             </button>
 
             {isAuthenticated && !isAdmin() && (
-              <Link to="/cart" className="relative p-2 rounded-lg hover:bg-gray-100 transition">
-                <ShoppingCart size={24} />
-                {getCartItemsCount() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {getCartItemsCount()}
-                  </span>
+              <>
+                {user?.accountType === 'customer' && (
+                  <>
+                    <Link to="/cart" className="relative p-2 rounded-lg hover:bg-gray-100 transition" title="Cart">
+                      <ShoppingCart size={24} />
+                      {getCartItemsCount() > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                          {getCartItemsCount()}
+                        </span>
+                      )}
+                    </Link>
+                    <Link to="/orders" className="hidden md:block p-2 rounded-lg hover:bg-gray-100 transition" title="Orders">
+                      <Package size={24} />
+                    </Link>
+                  </>
                 )}
-              </Link>
+                {user?.accountType === 'brand' && (
+                  <Link to="/quotes" className="hidden md:block p-2 rounded-lg hover:bg-gray-100 transition" title="Quotes">
+                    <FileText size={24} />
+                  </Link>
+                )}
+              </>
             )}
 
             {isAuthenticated ? (
               <>
-                {isAdmin() && (
-                  <Link
-                    to="/admin/products"
-                    className="hidden md:block px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition"
-                  >
-                    {t('nav.admin')}
-                  </Link>
+                {isAdmin() ? (
+                  <>
+                    <Link
+                      to="/admin/products"
+                      className="hidden md:block px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition"
+                    >
+                      {t('nav.admin')}
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="hidden md:block px-4 py-2 text-gray-700 hover:text-gray-900 transition"
+                    >
+                      {t('nav.logout')}
+                    </button>
+                  </>
+                ) : (
+                  <div className="hidden md:block">
+                    <UserMenu />
+                  </div>
                 )}
-                <button
-                  onClick={handleLogout}
-                  className="hidden md:block px-4 py-2 text-gray-700 hover:text-gray-900 transition"
-                >
-                  {t('nav.logout')}
-                </button>
               </>
             ) : (
               <>
@@ -150,6 +171,24 @@ const Navigation = () => {
             </Link>
             {isAuthenticated ? (
               <>
+                {user?.accountType === 'customer' && !isAdmin() && (
+                  <Link
+                    to="/orders"
+                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    onClick={toggleMenu}
+                  >
+                    My Orders
+                  </Link>
+                )}
+                {user?.accountType === 'brand' && !isAdmin() && (
+                  <Link
+                    to="/quotes"
+                    className="block py-2 text-gray-700 hover:text-gray-900"
+                    onClick={toggleMenu}
+                  >
+                    My Quotes
+                  </Link>
+                )}
                 {isAdmin() && (
                   <Link
                     to="/admin/products"

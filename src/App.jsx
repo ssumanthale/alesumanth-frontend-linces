@@ -16,6 +16,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import Orders from './pages/Orders';
+import OrderDetails from './pages/OrderDetails';
+import Quotes from './pages/Quotes';
+import QuoteDetails from './pages/QuoteDetails';
 
 import AdminProducts from './pages/admin/AdminProducts';
 import AddProduct from './pages/admin/AddProduct';
@@ -53,6 +57,38 @@ function App() {
                     element={
                       <ProtectedRoute>
                         <Checkout />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/orders"
+                    element={
+                      <ProtectedRoute>
+                        <Orders />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/orders/:id"
+                    element={
+                      <ProtectedRoute>
+                        <OrderDetails />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/quotes"
+                    element={
+                      <ProtectedRoute>
+                        <Quotes />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/quotes/:id"
+                    element={
+                      <ProtectedRoute>
+                        <QuoteDetails />
                       </ProtectedRoute>
                     }
                   />

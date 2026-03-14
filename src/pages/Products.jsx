@@ -16,6 +16,7 @@ const Products = () => {
         setError(null);
         const { data } = await productsAPI.getAll();
         const products = data?.data || [];        
+console.log(products);
 
         setProducts(products);
       } catch (error) {

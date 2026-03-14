@@ -52,6 +52,8 @@ export const productsAPI = {
 
 export const quotesAPI = {
   create: (quoteData) => apiClient.post("/quotes", quoteData),
+  getAll: (params) => apiClient.get("/quotes", { params }),
+  getById: (id) => apiClient.get(`/quotes/${id}`),
 };
 
 export const contactAPI = {
@@ -59,7 +61,18 @@ export const contactAPI = {
 };
 
 export const ordersAPI = {
-  create: (orderData) => apiClient.post("/orders", orderData),
+  create: (orderData) => apiClient.post("/orders/checkout", orderData),
+  getAll: (params) => apiClient.get("/orders", { params }),
+  getById: (id) => apiClient.get(`/orders/${id}`),
 };
 
+export const cartAPI = {
+  getCart: () => apiClient.get("/cart"),
+
+  add: (data) => apiClient.post("/cart/add", data),
+
+  update: (data) => apiClient.put("/cart/update", data),
+
+  remove: (id) => apiClient.delete(`/cart/remove/${id}`),
+};
 export default apiClient;

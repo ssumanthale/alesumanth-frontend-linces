@@ -1,11 +1,19 @@
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useEffect } from 'react';
 
 const Checkout = () => {
   const { t } = useLanguage();
   const location = useLocation();
-  const orderNumber = location.state?.orderNumber || 'N/A';
+  const navigate = useNavigate();
+  const orderNumber = location.state?.orderNumber || null;
+
+  useEffect(() => {
+    if (!orderNumber) {
+      navigate('/cart');
+    }
+  }, [orderNumber, navigate]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
@@ -22,12 +30,20 @@ const Checkout = () => {
           <p className="text-xl font-bold text-gray-900">{orderNumber}</p>
         </div>
 
-        <Link
-          to="/products"
-          className="inline-block w-full bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition font-semibold"
-        >
-          {t('checkout.continueShopping')}
-        </Link>
+        <div className="flex flex-col space-y-3">
+          <Link
+            to="/orders"
+            className="inline-block w-full bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition font-semibold"
+          >
+            View Order Details
+          </Link>
+          <Link
+            to="/products"
+            className="inline-block w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition font-semibold"
+          >
+            {t('checkout.continueShopping')}
+          </Link>
+        </div>
       </div>
     </div>
   );

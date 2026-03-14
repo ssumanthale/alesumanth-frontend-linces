@@ -4,34 +4,36 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 const CartItem = ({ item }) => {
   const { updateQuantity, removeFromCart } = useCart();
-  const { t } = useLanguage();
+  const { t ,language} = useLanguage();
 
   const handleIncrease = () => {
-    updateQuantity(item.id, item.quantity + 1);
+    updateQuantity(item.cartItemId, item.quantity + 1);
   };
 
   const handleDecrease = () => {
     if (item.quantity > 1) {
-      updateQuantity(item.id, item.quantity - 1);
+      updateQuantity(item.cartItemId, item.quantity - 1);
     }
   };
 
   const handleRemove = () => {
-    removeFromCart(item.id);
+    removeFromCart(item.cartItemId);
   };
 
   return (
     <div className="flex items-center space-x-4 bg-white p-4 rounded-lg shadow-md">
       <div className="w-24 h-24 flex-shrink-0 bg-gray-200 rounded-md overflow-hidden">
         <img
-          src={item.image || 'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg'}
-          alt={item.name}
+          src={item.imageUrl || 'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg'}
+          alt={item.name_en}
           className="w-full h-full object-cover"
         />
       </div>
 
       <div className="flex-1">
-        <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+        <h3 className="text-lg font-semibold text-gray-800">{
+          language === 'en' ? item.name_en : item.name_es
+          }</h3>
         <p className="text-gray-600 text-sm">${item.price?.toFixed(2)}</p>
       </div>
 
