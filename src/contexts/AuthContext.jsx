@@ -103,6 +103,10 @@ export const AuthProvider = ({ children }) => {
     return user?.accountType === "admin";
   };
 
+  const isBrand = () => {
+    return user?.accountType === "brand";
+  }
+
   const value = {
     user,
     token,
@@ -112,6 +116,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     isAdmin,
     isAuthenticated: !!token,
+    isBrand,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

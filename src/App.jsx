@@ -26,6 +26,8 @@ import AddProduct from './pages/admin/AddProduct';
 import EditProduct from './pages/admin/EditProduct';
 
 function App() {
+
+
   return (
     <LanguageProvider>
       <AuthProvider>

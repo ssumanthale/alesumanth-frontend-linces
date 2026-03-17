@@ -1,45 +1,30 @@
-import { useState } from 'react';
-import { Sparkles, Scissors, Package, Truck, CheckCircle, Users, ShieldCheck, Clock } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
-import { quotesAPI } from '../services/api';
-import SectionContainer from '../components/brand/SectionContainer';
-import Card from '../components/brand/Card';
-import ProcessStep from '../components/brand/ProcessStep';
-import QuoteForm from '../components/brand/QuoteForm';
-import CTAButton from '../components/brand/CTAButton';
+import { useState } from "react";
+import {
+  Sparkles,
+  Scissors,
+  Package,
+  Truck,
+  CheckCircle,
+  Users,
+  ShieldCheck,
+  Clock,
+} from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
+import SectionContainer from "../components/brand/SectionContainer";
+import Card from "../components/brand/Card";
+import ProcessStep from "../components/brand/ProcessStep";
+import CTAButton from "../components/brand/CTAButton";
+import QuoteModal from "../components/QuoteModal";
 
 const Services = () => {
   const { t } = useLanguage();
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: '', text: '' });
 
-  const handleSubmit = async (formData) => {
-    setLoading(true);
-    setMessage({ type: '', text: '' });
-
-    try {
-      const quoteData = {
-        brandName: formData.companyName,
-        email: formData.email,
-        message: `Contact: ${formData.contactPerson}\nPhone: ${formData.phone}\nQuantity: ${formData.quantity}\n\n${formData.description}`
-      };
-
-      await quotesAPI.create(quoteData);
-      setMessage({ type: 'success', text: t('services.quote.success') });
-
-      setTimeout(() => {
-        window.location.href = '/quotes';
-      }, 2000);
-    } catch (error) {
-      console.error('Error submitting quote:', error);
-      setMessage({ type: 'error', text: error.response?.data?.error || t('services.quote.error') });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [openQuoteModal, setOpenQuoteModal] = useState(false);
 
   const scrollToForm = () => {
-    document.getElementById('quote-form')?.scrollIntoView({ behavior: 'smooth' });
+    document
+      .getElementById("quote-form")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -48,7 +33,9 @@ const Services = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-stone-100 rounded-full mb-8">
             <Sparkles size={16} className="text-gray-900" />
-            <span className="text-sm font-medium text-gray-900">Premium Manufacturing Partner</span>
+            <span className="text-sm font-medium text-gray-900">
+              Premium Manufacturing Partner
+            </span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
@@ -63,7 +50,7 @@ const Services = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton onClick={scrollToForm}>
+            <CTAButton onClick={() => setOpenQuoteModal(true)}>
               Request a Quote
             </CTAButton>
             <CTAButton variant="secondary" icon={false}>
@@ -79,7 +66,8 @@ const Services = () => {
             Manufacturing Capabilities
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Comprehensive solutions for fashion brands seeking premium silk production
+            Comprehensive solutions for fashion brands seeking premium silk
+            production
           </p>
         </div>
 
@@ -114,8 +102,9 @@ const Services = () => {
               Why Partner With Us
             </h2>
             <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              We combine traditional silk craftsmanship with modern manufacturing excellence,
-              delivering products that meet the highest standards of luxury fashion.
+              We combine traditional silk craftsmanship with modern
+              manufacturing excellence, delivering products that meet the
+              highest standards of luxury fashion.
             </p>
 
             <div className="space-y-6">
@@ -128,7 +117,8 @@ const Services = () => {
                     Premium Materials
                   </h3>
                   <p className="text-gray-600">
-                    100% authentic silk sourced from certified suppliers worldwide
+                    100% authentic silk sourced from certified suppliers
+                    worldwide
                   </p>
                 </div>
               </div>
@@ -142,7 +132,8 @@ const Services = () => {
                     Reliable Timelines
                   </h3>
                   <p className="text-gray-600">
-                    On-time delivery with transparent production tracking and updates
+                    On-time delivery with transparent production tracking and
+                    updates
                   </p>
                 </div>
               </div>
@@ -211,41 +202,16 @@ const Services = () => {
         </div>
       </SectionContainer>
 
-      <SectionContainer background="white" className="py-24" id="quote-form">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-              Request a Quote
-            </h2>
-            <p className="text-xl text-gray-600">
-              Tell us about your project and we'll get back to you within 24 hours
-            </p>
-          </div>
+      <div className="text-center py-24">
+        <h2 className="text-4xl font-bold mb-6">Need a Custom Order?</h2>
 
-          <div className="bg-stone-50 rounded-3xl p-8 md:p-12 border border-stone-200">
-            {message.text && (
-              <div
-                className={`mb-8 p-5 rounded-xl flex items-start gap-3 ${
-                  message.type === 'success'
-                    ? 'bg-green-50 border border-green-200'
-                    : 'bg-red-50 border border-red-200'
-                }`}
-              >
-                <CheckCircle
-                  size={20}
-                  className={message.type === 'success' ? 'text-green-600' : 'text-red-600'}
-                />
-                <p className={message.type === 'success' ? 'text-green-800' : 'text-red-800'}>
-                  {message.text}
-                </p>
-              </div>
-            )}
-
-            <QuoteForm onSubmit={handleSubmit} loading={loading} />
-          </div>
-        </div>
-      </SectionContainer>
-
+        <button
+          onClick={() => setOpenQuoteModal(true)}
+          className="px-8 py-4 bg-black text-white rounded-xl hover:bg-gray-800 transition"
+        >
+          Request a Quote
+        </button>
+      </div>
       <SectionContainer background="dark" className="py-20">
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -259,6 +225,10 @@ const Services = () => {
           </CTAButton>
         </div>
       </SectionContainer>
+      <QuoteModal
+        isOpen={openQuoteModal}
+        onClose={() => setOpenQuoteModal(false)}
+      />
     </div>
   );
 };
