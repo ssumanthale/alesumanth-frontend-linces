@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, FileText, Calendar, Mail, Building2, MessageSquare, User } from 'lucide-react';
+import { ArrowLeft, FileText, Calendar, Mail, Building2, MessageSquare, Clock, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { quotesAPI } from '../services/api';
+import SectionContainer from '../components/brand/SectionContainer';
 
 const QuoteDetails = () => {
   const { id } = useParams();
@@ -43,21 +44,21 @@ const QuoteDetails = () => {
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        return 'bg-amber-50 text-amber-700 border-amber-200';
       case 'reviewed':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+        return 'bg-blue-50 text-blue-700 border-blue-200';
       case 'approved':
-        return 'bg-green-100 text-green-800 border-green-200';
+        return 'bg-green-50 text-green-700 border-green-200';
       case 'rejected':
-        return 'bg-red-100 text-red-800 border-red-200';
+        return 'bg-red-50 text-red-700 border-red-200';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-stone-50 text-stone-700 border-stone-200';
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
       </div>
     );
@@ -65,14 +66,14 @@ const QuoteDetails = () => {
 
   if (error || !quote) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 text-lg mb-4">{error || 'Quote not found'}</p>
+          <p className="text-red-600 text-lg mb-6">{error || 'Quote not found'}</p>
           <Link
             to="/quotes"
-            className="inline-flex items-center text-gray-900 hover:text-gray-700 font-semibold"
+            className="inline-flex items-center text-gray-900 hover:text-gray-700 font-semibold group"
           >
-            <ArrowLeft className="mr-2" size={20} />
+            <ArrowLeft className="mr-2 transition-transform group-hover:-translate-x-1" size={20} />
             Back to Quotes
           </Link>
         </div>
@@ -81,99 +82,119 @@ const QuoteDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-stone-50">
+      <SectionContainer background="white" className="py-12 border-b border-stone-200">
         <Link
           to="/quotes"
-          className="inline-flex items-center text-gray-700 hover:text-gray-900 mb-8 transition"
+          className="inline-flex items-center text-gray-700 hover:text-gray-900 mb-8 transition group"
         >
-          <ArrowLeft className="mr-2" size={20} />
-          Back to Quotes
+          <ArrowLeft className="mr-2 transition-transform group-hover:-translate-x-1" size={20} />
+          <span className="font-medium">Back to Quotes</span>
         </Link>
 
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          <div className="flex items-center justify-between mb-6 pb-6 border-b">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Quote Request #{quote.id}
-              </h1>
-              <div className="flex items-center text-gray-600">
-                <Calendar size={16} className="mr-2" />
-                {formatDate(quote.createdAt)}
-              </div>
-            </div>
-            <div>
-              <span
-                className={`px-4 py-2 rounded-lg text-sm font-semibold border ${getStatusColor(
-                  quote.status || 'pending'
-                )}`}
-              >
-                {quote.status || 'Pending'}
-              </span>
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3 tracking-tight">
+              Quote Request #{quote.id}
+            </h1>
+            <div className="flex items-center text-gray-600">
+              <Calendar size={18} className="mr-2" />
+              <span className="text-lg">{formatDate(quote.createdAt)}</span>
             </div>
           </div>
+          <div>
+            <span
+              className={`inline-block px-6 py-3 rounded-xl text-sm font-semibold border ${getStatusColor(
+                quote.status || 'pending'
+              )}`}
+            >
+              {quote.status || 'Pending'}
+            </span>
+          </div>
+        </div>
+      </SectionContainer>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="flex items-center mb-4">
-                <Building2 className="text-gray-900 mr-3" size={24} />
-                <h2 className="text-lg font-semibold text-gray-900">Company Information</h2>
+      <SectionContainer background="cream" className="py-12">
+        <div className="max-w-5xl mx-auto space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-stone-100 rounded-xl flex items-center justify-center mr-4">
+                  <Building2 className="text-gray-900" size={24} />
+                </div>
+                <h2 className="text-xl font-bold text-gray-900">Company Information</h2>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div>
-                  <div className="text-sm text-gray-600 mb-1">Brand Name</div>
-                  <div className="font-semibold text-gray-900">{quote.brandName}</div>
+                  <div className="text-sm text-gray-500 mb-1">Brand Name</div>
+                  <div className="text-lg font-semibold text-gray-900">{quote.brandName}</div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="flex items-center mb-4">
-                <Mail className="text-gray-900 mr-3" size={24} />
-                <h2 className="text-lg font-semibold text-gray-900">Contact Information</h2>
+            <div className="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-stone-100 rounded-xl flex items-center justify-center mr-4">
+                  <Mail className="text-gray-900" size={24} />
+                </div>
+                <h2 className="text-xl font-bold text-gray-900">Contact Information</h2>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div>
-                  <div className="text-sm text-gray-600 mb-1">Email</div>
-                  <div className="font-semibold text-gray-900">{quote.email}</div>
+                  <div className="text-sm text-gray-500 mb-1">Email Address</div>
+                  <div className="text-lg font-semibold text-gray-900">{quote.email}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-6 mb-8">
-            <div className="flex items-center mb-4">
-              <MessageSquare className="text-gray-900 mr-3" size={24} />
-              <h2 className="text-lg font-semibold text-gray-900">Request Details</h2>
+          <div className="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm">
+            <div className="flex items-center mb-6">
+              <div className="w-12 h-12 bg-stone-100 rounded-xl flex items-center justify-center mr-4">
+                <MessageSquare className="text-gray-900" size={24} />
+              </div>
+              <h2 className="text-xl font-bold text-gray-900">Project Details</h2>
             </div>
             <div className="prose max-w-none">
-              <p className="text-gray-700 whitespace-pre-wrap">{quote.message}</p>
+              <p className="text-gray-700 whitespace-pre-wrap leading-relaxed text-base">
+                {quote.message}
+              </p>
             </div>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <div className="flex items-start space-x-3">
-              <FileText className="text-blue-600 flex-shrink-0 mt-1" size={20} />
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">What happens next?</h3>
-                <p className="text-sm text-gray-700">
-                  Our team will review your quote request and get back to you within 1-2 business
-                  days. We'll contact you at the email address provided to discuss your
-                  requirements in detail.
-                </p>
+          {!quote.response && (
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200 rounded-2xl p-8">
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-blue-200/50 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Clock className="text-blue-700" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">What Happens Next?</h3>
+                  <p className="text-base text-gray-700 leading-relaxed">
+                    Our manufacturing team is reviewing your quote request. We'll get back to you
+                    within 1-2 business days with a detailed proposal. You'll receive an email at{' '}
+                    <span className="font-semibold">{quote.email}</span> to discuss your requirements
+                    and next steps.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {quote.response && (
-            <div className="mt-8 bg-green-50 border border-green-200 rounded-lg p-6">
-              <div className="flex items-start space-x-3">
-                <MessageSquare className="text-green-600 flex-shrink-0 mt-1" size={20} />
+            <div className="bg-gradient-to-br from-green-50 to-green-100/50 border border-green-200 rounded-2xl p-8">
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-green-200/50 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <CheckCircle2 className="text-green-700" size={24} />
+                </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 mb-2">Response from Team</h3>
-                  <p className="text-sm text-gray-700 whitespace-pre-wrap">{quote.response}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">Response from Our Team</h3>
+                  <p className="text-base text-gray-700 whitespace-pre-wrap leading-relaxed mb-4">
+                    {quote.response}
+                  </p>
                   {quote.updatedAt && (
-                    <p className="text-xs text-gray-600 mt-3">
+                    <p className="text-sm text-gray-600 flex items-center">
+                      <Calendar size={14} className="mr-2" />
                       Responded on {formatDate(quote.updatedAt)}
                     </p>
                   )}
@@ -182,7 +203,7 @@ const QuoteDetails = () => {
             </div>
           )}
         </div>
-      </div>
+      </SectionContainer>
     </div>
   );
 };
