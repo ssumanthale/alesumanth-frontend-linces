@@ -61,7 +61,7 @@ const Navigation = () => {
                   <span
                     className={`
             absolute left-0 -bottom-1 h-[2px] bg-black transition-all duration-300
-            ${isActive ? "w-full" : ""}
+            ${isActive ? "w-full" : "w-0 group-hover:w-full"}
           `}
                   />
                 </Link>
@@ -69,106 +69,108 @@ const Navigation = () => {
             })}
           </div>
 
-          {/* RIGHT SECTION */}
-          <div className="flex items-center space-x-3">
-            {/* LANGUAGE */}
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition text-sm"
-            >
-              <Globe size={16} />
-              {language.toUpperCase()}
-            </button>
+     {/* RIGHT SECTION */}
+<div className="flex items-center gap-2 md:gap-3">
 
-            {/* USER ACTIONS */}
-            {isAuthenticated && !isAdmin() && (
-              <>
-                {user?.accountType === "customer" && (
-                  <>
-                    {/* CART */}
-                    <Link
-                      to="/cart"
-                      className="relative p-2 rounded-full hover:bg-gray-100 transition"
-                    >
-                      <ShoppingCart size={22} />
+  {/* LANGUAGE */}
+  <button
+    onClick={toggleLanguage}
+    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 hover:shadow-sm transition text-xs md:text-sm font-medium"
+  >
+    <Globe size={16} />
+    {language.toUpperCase()}
+  </button>
 
-                      {getCartItemsCount() > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center">
-                          {getCartItemsCount()}
-                        </span>
-                      )}
-                    </Link>
+  {/* USER ACTIONS */}
+  {isAuthenticated && !isAdmin() && (
+    <div className="flex items-center gap-1 md:gap-2">
+      
+      {user?.accountType === "customer" && (
+        <>
+          {/* CART */}
+          <Link
+            to="/cart"
+            className="relative flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+          >
+            <ShoppingCart size={20} />
 
-                    {/* ORDERS */}
-                    <Link
-                      to="/orders"
-                      className="hidden md:flex p-2 rounded-full hover:bg-gray-100 transition"
-                    >
-                      <Package size={22} />
-                    </Link>
-                  </>
-                )}
-
-                {user?.accountType === "brand" && (
-                  <Link
-                    to="/quotes"
-                    className="hidden md:flex p-2 rounded-full hover:bg-gray-100 transition"
-                  >
-                    <FileText size={22} />
-                  </Link>
-                )}
-              </>
+            {getCartItemsCount() > 0 && (
+              <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] font-medium rounded-full h-5 min-w-[20px] px-1 flex items-center justify-center">
+                {getCartItemsCount()}
+              </span>
             )}
+          </Link>
 
-            {/* AUTH */}
-            {isAuthenticated ? (
-              isAdmin() ? (
-                <>
-                  <Link
-                    to="/admin/products"
-                    className="hidden md:block px-4 py-2 rounded-full bg-black text-white text-sm hover:opacity-90 transition"
-                  >
-                    {t("nav.admin")}
-                  </Link>
+          {/* ORDERS */}
+          <Link
+            to="/orders"
+            className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+          >
+            <Package size={20} />
+          </Link>
+        </>
+      )}
 
-                  <button
-                    onClick={handleLogout}
-                    className="hidden md:block text-sm text-gray-600 hover:text-black transition"
-                  >
-                    {t("nav.logout")}
-                  </button>
-                </>
-              ) : (
-                <div className="hidden md:block">
-                  <UserMenu />
-                </div>
-              )
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="hidden md:block text-sm text-gray-600 hover:text-black transition"
-                >
-                  {t("nav.login")}
-                </Link>
+      {user?.accountType === "brand" && (
+        <Link
+          to="/quotes"
+          className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+        >
+          <FileText size={20} />
+        </Link>
+      )}
+    </div>
+  )}
 
-                <Link
-                  to="/register"
-                  className="hidden md:block px-4 py-2 rounded-full bg-black text-white text-sm hover:opacity-90 transition"
-                >
-                  {t("nav.register")}
-                </Link>
-              </>
-            )}
+  {/* AUTH */}
+  {isAuthenticated ? (
+    isAdmin() ? (
+      <div className="hidden md:flex items-center gap-2 ml-2">
+        <Link
+          to="/admin/products"
+          className="px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium hover:opacity-90 hover:shadow-md transition"
+        >
+          {t("nav.admin")}
+        </Link>
 
-            {/* MOBILE MENU BUTTON */}
-            <button
-              onClick={toggleMenu}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
-            >
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
-          </div>
+        <button
+          onClick={handleLogout}
+          className="px-3 py-1.5 rounded-full text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition"
+        >
+          {t("nav.logout")}
+        </button>
+      </div>
+    ) : (
+      <div className="hidden md:block ml-2">
+        <UserMenu />
+      </div>
+    )
+  ) : (
+    <div className="hidden md:flex items-center gap-2 ml-2">
+      <Link
+        to="/login"
+        className="px-3 py-1.5 rounded-full text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition"
+      >
+        {t("nav.login")}
+      </Link>
+
+      <Link
+        to="/register"
+        className="px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium hover:opacity-90 hover:shadow-md transition"
+      >
+        {t("nav.register")}
+      </Link>
+    </div>
+  )}
+
+  {/* MOBILE MENU BUTTON */}
+  <button
+    onClick={toggleMenu}
+    className="md:hidden flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition"
+  >
+    {isOpen ? <X size={20} /> : <Menu size={20} />}
+  </button>
+</div>
         </div>
       </div>
 

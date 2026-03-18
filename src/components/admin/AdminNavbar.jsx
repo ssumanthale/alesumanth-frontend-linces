@@ -18,7 +18,7 @@ const AdminNavbar = ({ title }) => {
       <div className="flex items-center gap-4">
 
         {/* 🔍 SEARCH */}
-        <div className="hidden md:flex items-center bg-gray-100 px-3 py-2 rounded-lg focus-within:ring-2 focus-within:ring-gray-300 transition-all">
+        <div className="hidden lg:flex items-center bg-gray-100 px-3 py-2 rounded-lg focus-within:ring-2 focus-within:ring-gray-300 transition-all">
           <Search size={16} className="text-gray-500 mr-2" />
           <input
             type="text"
@@ -29,12 +29,6 @@ const AdminNavbar = ({ title }) => {
           />
         </div>
 
-        {/* 🔔 NOTIFICATIONS */}
-        <button className="relative p-2 rounded-lg hover:bg-gray-100 transition">
-          <Bell size={18} className="text-gray-700" />
-          {/* Notification dot */}
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
 
         {/* 👤 PROFILE */}
         <div className="flex items-center gap-3 pl-4 border-l border-gray-200 cursor-pointer group">

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FileText, ChevronRight } from 'lucide-react';
-import { quotesAPI } from '../../services/api';
-import AdminLayout from '../../components/admin/AdminLayout';
-import StatusBadge from '../../components/admin/StatusBadge';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FileText, ChevronRight } from "lucide-react";
+import { quotesAPI } from "../../services/api";
+import AdminLayout from "../../components/admin/AdminLayout";
+import StatusBadge from "../../components/admin/StatusBadge";
 
 const AdminQuotes = () => {
   const [quotes, setQuotes] = useState([]);
@@ -21,33 +21,19 @@ const AdminQuotes = () => {
       const response = await quotesAPI.getAll();
       setQuotes(response.data?.data || []);
     } catch (error) {
-      console.error('Error fetching quotes:', error);
-      setError('Failed to load quote requests');
+      console.error("Error fetching quotes:", error);
+      setError("Failed to load quote requests");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleStatusChange = async (quoteId, newStatus) => {
-    try {
-      await quotesAPI.updateStatus(quoteId, newStatus);
-      setQuotes(
-        quotes.map((q) =>
-          q.id === quoteId ? { ...q, status: newStatus } : q
-        )
-      );
-    } catch (error) {
-      console.error('Error updating quote status:', error);
-      alert('Failed to update status');
-    }
-  };
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
@@ -102,13 +88,7 @@ const AdminQuotes = () => {
 
                   <div className="flex items-center gap-4">
                     <div className="w-40">
-                      <StatusBadge
-                        status={quote.status}
-                        onStatusChange={(newStatus) =>
-                          handleStatusChange(quote.id, newStatus)
-                        }
-                        editable={true}
-                      />
+                      <StatusBadge status={quote.status} editable={false} />
                     </div>
 
                     <Link
@@ -127,7 +107,9 @@ const AdminQuotes = () => {
             <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <FileText className="text-gray-400" size={32} />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Quote Requests</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              No Quote Requests
+            </h3>
             <p className="text-gray-600">
               Quote requests from brands will appear here
             </p>

@@ -21,7 +21,7 @@ const Quotes = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await quotesAPI.getAll({ page, limit: 20 });
+      const response = await quotesAPI.getMyQuotes({ page, limit: 20 });
       setQuotes(response.data.data || []);
       setPagination(response.data.pagination);
     } catch (error) {

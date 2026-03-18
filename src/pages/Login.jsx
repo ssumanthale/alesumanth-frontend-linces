@@ -31,9 +31,8 @@ const Login = () => {
 
     if (result.success) {
       if (result.isAdmin) {
-        window.location.href = "/admin";
+        window.location.href = "/admin/dashboard";
       } else {
-        // reload and navigate to home to refresh user state
         window.location.href = "/";
       }
     } else {

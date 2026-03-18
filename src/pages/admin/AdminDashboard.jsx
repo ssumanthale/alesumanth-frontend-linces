@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Plus, FileText, Package, TrendingUp, ArrowRight } from 'lucide-react';
-import AdminLayout from '../../components/admin/AdminLayout';
-import StatCard from '../../components/admin/StatCard';
-import { productsAPI, quotesAPI } from '../../services/api';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Plus, FileText, Package, TrendingUp, ArrowRight } from "lucide-react";
+import AdminLayout from "../../components/admin/AdminLayout";
+import StatCard from "../../components/admin/StatCard";
+import { productsAPI, quotesAPI } from "../../services/api";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -32,12 +32,12 @@ const AdminDashboard = () => {
       setStats({
         totalProducts: products.length,
         totalQuotes: quotes.length,
-        pendingQuotes: quotes.filter((q) => q.status === 'pending').length,
+        pendingQuotes: quotes.filter((q) => q.status === "pending").length,
       });
 
       setRecentQuotes(quotes.slice(0, 5));
     } catch (error) {
-      console.error('Error fetching dashboard data:', error);
+      console.error("Error fetching dashboard data:", error);
     } finally {
       setLoading(false);
     }
@@ -69,7 +69,9 @@ const AdminDashboard = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">Recent Quote Requests</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-6">
+              Recent Quote Requests
+            </h2>
 
             {loading ? (
               <div className="flex justify-center py-8">
@@ -83,20 +85,22 @@ const AdminDashboard = () => {
                     className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group"
                   >
                     <div className="flex-1">
-                      <p className="font-medium text-gray-900">{quote.brandName}</p>
+                      <p className="font-medium text-gray-900">
+                        {quote.brandName}
+                      </p>
                       <p className="text-sm text-gray-600">{quote.email}</p>
                     </div>
                     <div className="flex items-center gap-3">
                       <span
                         className={`px-3 py-1.5 text-xs font-medium rounded-lg border ${
-                          quote.status === 'pending'
-                            ? 'bg-gray-100 text-gray-700 border-gray-200'
-                            : quote.status === 'approved'
-                              ? 'bg-green-100 text-green-700 border-green-200'
-                              : 'bg-blue-100 text-blue-700 border-blue-200'
+                          quote.status === "pending"
+                            ? "bg-gray-100 text-gray-700 border-gray-200"
+                            : quote.status === "approved"
+                              ? "bg-green-100 text-green-700 border-green-200"
+                              : "bg-blue-100 text-blue-700 border-blue-200"
                         }`}
                       >
-                        {quote.status || 'Pending'}
+                        {quote.status || "Pending"}
                       </span>
                       <Link
                         to={`/admin/quotes/${quote.id}`}
@@ -109,7 +113,9 @@ const AdminDashboard = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8">No quote requests yet</p>
+              <p className="text-gray-500 text-center py-8">
+                No quote requests yet
+              </p>
             )}
 
             <Link
@@ -123,7 +129,9 @@ const AdminDashboard = () => {
 
           <div className="space-y-4">
             <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-4">
+                Quick Actions
+              </h3>
               <div className="space-y-3">
                 <Link
                   to="/admin/products/new"

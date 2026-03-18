@@ -46,7 +46,7 @@ const Register = () => {
     );
 
     if (result.success) {
-      navigate("/");
+      window.location.href = "/";
     } else {
       setError(result.error || t("auth.register.error"));
     }
@@ -56,7 +56,6 @@ const Register = () => {
 
   return (
     <>
-
       <div className=" bg-gray-50 flex items-center justify-center py-12 px-4">
         <div className="max-w-md w-full">
           {/* Title */}

@@ -3,7 +3,6 @@ import { useAuth } from "../contexts/AuthContext";
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
   const { isAuthenticated, isAdmin, loading } = useAuth();
-  console.log(isAuthenticated, isAdmin(), loading);
 
   if (loading) {
     return (
@@ -14,11 +13,11 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login"  />;
+    return <Navigate to="/login" replace />;
   }
 
   if (adminOnly && !isAdmin()) {
-    return <Navigate to="/"  />;
+    return <Navigate to="/" replace />;
   }
 
   return children;
