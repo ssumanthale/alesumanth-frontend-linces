@@ -1,12 +1,8 @@
 import { useState } from "react";
 import CTAButton from "./CTAButton";
+import { quotesAPI } from "../../services/api";
 
-const QuoteForm = ({
-  onSubmit,
-  loading = false,
-  disabled = false,
-  onClose,
-}) => {
+const QuoteForm = ({ disabled = false, onClose }) => {
   const initialState = {
     companyName: "",
     contactPerson: "",
@@ -18,29 +14,72 @@ const QuoteForm = ({
 
   const [formData, setFormData] = useState(initialState);
   const [success, setSuccess] = useState(false);
-
+  const [errors, setErrors] = useState({}); // ✅ NEW
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    // ✅ Clear error when user types
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setErrors({});
 
-    const res = await onSubmit(formData); // expect true/false
+  const quoteData = {
+    brandName: formData.companyName,
+    email: formData.email,
+    message: `Contact: ${formData.contactPerson}
+Phone: ${formData.phone}
+Quantity: ${formData.quantity}
 
-    if (res) {
+${formData.description}`,
+  };
+
+  try {
+    const { data } = await quotesAPI.create(quoteData);
+
+    // ✅ SUCCESS
+    if (data?.success) {
       setSuccess(true);
-      setFormData(initialState); // ✅ clear form
+      setFormData(initialState);
 
-      // ⏳ Smooth close after 2 sec
       setTimeout(() => {
         onClose && onClose();
       }, 2000);
     }
-  };
+
+  } catch (error) {
+    console.error("Error submitting quote:", error);
+
+    // 🔥 BACKEND VALIDATION ERRORS
+    if (error.response?.data?.details) {
+      const fieldErrors = {};
+
+      error.response.data.details.forEach((err) => {
+        fieldErrors[err.path] = err.msg;
+      });
+
+      setErrors(fieldErrors);
+    } 
+    // 🔥 GENERAL ERROR
+    else {
+      setErrors({ general: "An error occurred. Please try again." });
+    }
+
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div>
@@ -55,113 +94,147 @@ const QuoteForm = ({
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6 scroll">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {" "}
+            {/* Brand */}
             <div>
-              {" "}
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {" "}
-                Brand Name{" "}
-              </label>{" "}
+                Brand Name
+              </label>
               <input
                 type="text"
                 name="companyName"
                 value={formData.companyName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3.5 bg-white border border-stone-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent transition-all"
+                className={`w-full px-4 py-3.5 rounded-xl border ${
+                  errors.companyName ? "border-red-500" : "border-stone-300"
+                }`}
                 placeholder="Your brand name"
-              />{" "}
-            </div>{" "}
+              />
+              {errors.companyName && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.companyName}
+                </p>
+              )}
+            </div>
+
+            {/* Contact */}
             <div>
-              {" "}
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {" "}
-                Contact Person{" "}
-              </label>{" "}
+                Contact Person
+              </label>
               <input
                 type="text"
                 name="contactPerson"
                 value={formData.contactPerson}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3.5 bg-white border border-stone-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent transition-all"
+                className={`w-full px-4 py-3.5 rounded-xl border ${
+                  errors.contactPerson ? "border-red-500" : "border-stone-300"
+                }`}
                 placeholder="Full name"
-              />{" "}
-            </div>{" "}
+              />
+              {errors.contactPerson && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.contactPerson}
+                </p>
+              )}
+            </div>
+
+            {/* Email */}
             <div>
-              {" "}
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {" "}
-                Email Address{" "}
-              </label>{" "}
+                Email Address
+              </label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3.5 bg-white border border-stone-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent transition-all"
+                className={`w-full px-4 py-3.5 rounded-xl border ${
+                  errors.email ? "border-red-500" : "border-stone-300"
+                }`}
                 placeholder="email@company.com"
-              />{" "}
-            </div>{" "}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              )}
+            </div>
+
+            {/* Phone */}
             <div>
-              {" "}
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {" "}
-                Phone Number{" "}
-              </label>{" "}
+                Phone Number
+              </label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3.5 bg-white border border-stone-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent transition-all"
-                placeholder="+1 (555) 000-0000"
-              />{" "}
-            </div>{" "}
-          </div>{" "}
+                className={`w-full px-4 py-3.5 rounded-xl border ${
+                  errors.phone ? "border-red-500" : "border-stone-300"
+                }`}
+                placeholder="+91 9876543210"
+              />
+              {errors.phone && (
+                <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Quantity */}
           <div>
-            {" "}
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              {" "}
-              Estimated Production Quantity{" "}
-            </label>{" "}
+              Estimated Production Quantity
+            </label>
             <input
               type="text"
               name="quantity"
               value={formData.quantity}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3.5 bg-white border border-stone-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent transition-all"
+              className={`w-full px-4 py-3.5 rounded-xl border ${
+                errors.quantity ? "border-red-500" : "border-stone-300"
+              }`}
               placeholder="e.g., 1000 units"
-            />{" "}
+            />
+            {errors.quantity && (
+              <p className="text-red-500 text-sm mt-1">{errors.quantity}</p>
+            )}
             <p className="mt-2 text-sm text-gray-500">
               {" "}
               Provide your estimated order quantity or range{" "}
             </p>{" "}
-          </div>{" "}
+          </div>
+
+          {/* Description */}
           <div>
-            {" "}
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              {" "}
-              Project Details{" "}
-            </label>{" "}
+              Project Details
+            </label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
               required
               rows="6"
-              className="w-full px-4 py-3.5 bg-white border border-stone-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent transition-all resize-none"
               placeholder="Tell us about your project... Include details about product type, materials, design requirements, timeline, and any special requests."
-            ></textarea>{" "}
+              className={`w-full px-4 py-3.5 rounded-xl border ${
+                errors.description ? "border-red-500" : "border-stone-300"
+              }`}
+            />
+            {errors.description && (
+              <p className="text-red-500 text-sm mt-1">{errors.description}</p>
+            )}
             <p className="mt-2 text-sm text-gray-500">
               {" "}
               Include product type, materials, design requirements, timeline,
               and special requests{" "}
-            </p>{" "}
+            </p>
           </div>
+
+          {/* Submit */}
           <CTAButton
             type="submit"
             disabled={loading || disabled}

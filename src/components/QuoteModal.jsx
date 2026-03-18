@@ -8,50 +8,8 @@ import { quotesAPI } from "../services/api";
 export default function QuoteModal({ isOpen, onClose }) {
   const { isAuthenticated } = useAuth();
 
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: "", text: "" });
-
   if (!isOpen) return null;
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  setErrors({}); // reset old errors
-
-  const res = await onSubmit(formData);
-
-  if (res.success) {
-    setSuccess(true);
-    setFormData(initialState);
-
-    setTimeout(() => {
-      onClose && onClose();
-    }, 2000);
-  } else {
-    // 🔥 Map backend errors
-    if (res.details) {
-      const fieldErrors = {};
-      res.details.forEach((err) => {
-        fieldErrors[err.path] = err.msg;
-      });
-      setErrors(fieldErrors);
-    }
-  }
-};
-  const onSubmit = async (formData) => {
-    const quoteData = {
-      brandName: formData.companyName,
-      email: formData.email,
-      message: `Contact: ${formData.contactPerson}
-Phone: ${formData.phone}
-Quantity: ${formData.quantity}
-
-${formData.description}`,
-    };
-
-    const res = await quotesAPI.create(quoteData);
-    console.log(res);
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
@@ -106,34 +64,9 @@ ${formData.description}`,
               </div>
             </div>
           )}
-          {/* Error / Success Message */}
-          {message.text && (
-            <div
-              className={`mb-6 p-4 rounded-xl flex items-start gap-3 ${
-                message.type === "success"
-                  ? "bg-green-50 border border-green-200"
-                  : "bg-red-50 border border-red-200"
-              }`}
-            >
-              {message.type === "success" ? (
-                <CheckCircle size={20} className="text-green-600 mt-0.5" />
-              ) : (
-                <AlertCircle size={20} className="text-red-600 mt-0.5" />
-              )}
-
-              <p
-                className={
-                  message.type === "success" ? "text-green-800" : "text-red-800"
-                }
-              >
-                {message.text}
-              </p>
-            </div>
-          )}
+    
 
           <QuoteForm
-            onSubmit={handleSubmit}
-            loading={loading}
             disabled={!isAuthenticated}
           />
         </div>
