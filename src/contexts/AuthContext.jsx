@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       setToken(newToken);
       setUser(userData);
 
-      return { success: true };
+      return { success: true, isAdmin: userData.accountType === "admin" };
     } catch (error) {
       console.error("Login error:", error);
 
@@ -105,8 +105,11 @@ export const AuthProvider = ({ children }) => {
 
   const isBrand = () => {
     return user?.accountType === "brand";
-  }
+  };
 
+  const isCustomer = () => {
+    return user?.accountType === "customer";
+  }
   const value = {
     user,
     token,
@@ -117,6 +120,7 @@ export const AuthProvider = ({ children }) => {
     isAdmin,
     isAuthenticated: !!token,
     isBrand,
+    isCustomer
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

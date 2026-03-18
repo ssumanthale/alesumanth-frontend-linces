@@ -11,7 +11,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
   const { addToCart } = useCart();
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { isAuthenticated, isCustomer } = useAuth();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -132,7 +132,7 @@ const ProductDetails = () => {
               </p>
             </div>
 
-            {isAuthenticated && !isAdmin() && product.stock > 0 && (
+            {isAuthenticated && isCustomer() && product.stock > 0 && (
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
                   <label className="font-semibold">{t('cart.quantity')}:</label>

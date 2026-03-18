@@ -8,7 +8,7 @@ import { useAuth } from "../contexts/AuthContext";
 const ProductCard = ({ product }) => {
   const { t } = useLanguage();
   const { addToCart } = useCart();
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { isAuthenticated, isCustomer } = useAuth();
 
   const [adding, setAdding] = useState(false);
 
@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
             ${product.price?.toFixed(2)}
           </span>
 
-          {isAuthenticated && !isAdmin() && (
+          {isAuthenticated && isCustomer() && (
             <button
               onClick={handleAddToCart}
               disabled={adding}
