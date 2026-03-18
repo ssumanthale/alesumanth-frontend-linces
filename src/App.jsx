@@ -21,9 +21,12 @@ import OrderDetails from './pages/OrderDetails';
 import Quotes from './pages/Quotes';
 import QuoteDetails from './pages/QuoteDetails';
 
+import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AddProduct from './pages/admin/AddProduct';
 import EditProduct from './pages/admin/EditProduct';
+import AdminQuotes from './pages/admin/AdminQuotes';
+import AdminQuoteDetails from './pages/admin/AdminQuoteDetails';
 
 function App() {
 
@@ -96,6 +99,14 @@ function App() {
                   />
 
                   <Route
+                    path="/admin/dashboard"
+                    element={
+                      <ProtectedRoute adminOnly>
+                        <AdminDashboard />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
                     path="/admin/products"
                     element={
                       <ProtectedRoute adminOnly>
@@ -116,6 +127,22 @@ function App() {
                     element={
                       <ProtectedRoute adminOnly>
                         <EditProduct />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin/quotes"
+                    element={
+                      <ProtectedRoute adminOnly>
+                        <AdminQuotes />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin/quotes/:id"
+                    element={
+                      <ProtectedRoute adminOnly>
+                        <AdminQuoteDetails />
                       </ProtectedRoute>
                     }
                   />
