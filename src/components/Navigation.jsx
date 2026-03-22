@@ -8,6 +8,7 @@ import UserMenu from "./UserMenu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { t, language, toggleLanguage } = useLanguage();
   const { isAuthenticated, logout, isAdmin, user } = useAuth();
   const { getCartItemsCount } = useCart();
@@ -23,6 +24,24 @@ const Navigation = () => {
     logout();
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsScrolled(!entry.isIntersecting);
+      },
+      { threshold: 0 },
+    );
+
+    const sentinel = document.createElement("div");
+    document.body.insertBefore(sentinel, document.body.firstChild);
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+      document.body.removeChild(sentinel);
+    };
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-gray-200">
@@ -69,108 +88,106 @@ const Navigation = () => {
             })}
           </div>
 
-     {/* RIGHT SECTION */}
-<div className="flex items-center gap-2 md:gap-3">
+          {/* RIGHT SECTION */}
+          <div className="flex items-center gap-2 md:gap-3">
+            {/* LANGUAGE */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 hover:shadow-sm transition text-xs md:text-sm font-medium"
+            >
+              <Globe size={16} />
+              {language.toUpperCase()}
+            </button>
 
-  {/* LANGUAGE */}
-  <button
-    onClick={toggleLanguage}
-    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 hover:shadow-sm transition text-xs md:text-sm font-medium"
-  >
-    <Globe size={16} />
-    {language.toUpperCase()}
-  </button>
+            {/* USER ACTIONS */}
+            {isAuthenticated && !isAdmin() && (
+              <div className="flex items-center gap-1 md:gap-2">
+                {user?.accountType === "customer" && (
+                  <>
+                    {/* CART */}
+                    <Link
+                      to="/cart"
+                      className="relative flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+                    >
+                      <ShoppingCart size={20} />
 
-  {/* USER ACTIONS */}
-  {isAuthenticated && !isAdmin() && (
-    <div className="flex items-center gap-1 md:gap-2">
-      
-      {user?.accountType === "customer" && (
-        <>
-          {/* CART */}
-          <Link
-            to="/cart"
-            className="relative flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
-          >
-            <ShoppingCart size={20} />
+                      {getCartItemsCount() > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] font-medium rounded-full h-5 min-w-[20px] px-1 flex items-center justify-center">
+                          {getCartItemsCount()}
+                        </span>
+                      )}
+                    </Link>
 
-            {getCartItemsCount() > 0 && (
-              <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] font-medium rounded-full h-5 min-w-[20px] px-1 flex items-center justify-center">
-                {getCartItemsCount()}
-              </span>
+                    {/* ORDERS */}
+                    <Link
+                      to="/orders"
+                      className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+                    >
+                      <Package size={20} />
+                    </Link>
+                  </>
+                )}
+
+                {user?.accountType === "brand" && (
+                  <Link
+                    to="/quotes"
+                    className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+                  >
+                    <FileText size={20} />
+                  </Link>
+                )}
+              </div>
             )}
-          </Link>
 
-          {/* ORDERS */}
-          <Link
-            to="/orders"
-            className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
-          >
-            <Package size={20} />
-          </Link>
-        </>
-      )}
+            {/* AUTH */}
+            {isAuthenticated ? (
+              isAdmin() ? (
+                <div className="hidden md:flex items-center gap-2 ml-2">
+                  <Link
+                    to="/admin/products"
+                    className="px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium hover:opacity-90 hover:shadow-md transition"
+                  >
+                    {t("nav.admin")}
+                  </Link>
 
-      {user?.accountType === "brand" && (
-        <Link
-          to="/quotes"
-          className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
-        >
-          <FileText size={20} />
-        </Link>
-      )}
-    </div>
-  )}
+                  <button
+                    onClick={handleLogout}
+                    className="px-3 py-1.5 rounded-full text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition"
+                  >
+                    {t("nav.logout")}
+                  </button>
+                </div>
+              ) : (
+                <div className="hidden md:block ml-2">
+                  <UserMenu />
+                </div>
+              )
+            ) : (
+              <div className="hidden md:flex items-center gap-2 ml-2">
+                <Link
+                  to="/login"
+                  className="px-3 py-1.5 rounded-full text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition"
+                >
+                  {t("nav.login")}
+                </Link>
 
-  {/* AUTH */}
-  {isAuthenticated ? (
-    isAdmin() ? (
-      <div className="hidden md:flex items-center gap-2 ml-2">
-        <Link
-          to="/admin/products"
-          className="px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium hover:opacity-90 hover:shadow-md transition"
-        >
-          {t("nav.admin")}
-        </Link>
+                <Link
+                  to="/register"
+                  className="px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium hover:opacity-90 hover:shadow-md transition"
+                >
+                  {t("nav.register")}
+                </Link>
+              </div>
+            )}
 
-        <button
-          onClick={handleLogout}
-          className="px-3 py-1.5 rounded-full text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition"
-        >
-          {t("nav.logout")}
-        </button>
-      </div>
-    ) : (
-      <div className="hidden md:block ml-2">
-        <UserMenu />
-      </div>
-    )
-  ) : (
-    <div className="hidden md:flex items-center gap-2 ml-2">
-      <Link
-        to="/login"
-        className="px-3 py-1.5 rounded-full text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition"
-      >
-        {t("nav.login")}
-      </Link>
-
-      <Link
-        to="/register"
-        className="px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium hover:opacity-90 hover:shadow-md transition"
-      >
-        {t("nav.register")}
-      </Link>
-    </div>
-  )}
-
-  {/* MOBILE MENU BUTTON */}
-  <button
-    onClick={toggleMenu}
-    className="md:hidden flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition"
-  >
-    {isOpen ? <X size={20} /> : <Menu size={20} />}
-  </button>
-</div>
+            {/* MOBILE MENU BUTTON */}
+            <button
+              onClick={toggleMenu}
+              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition"
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </div>
 
