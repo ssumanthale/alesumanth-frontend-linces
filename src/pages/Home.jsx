@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowRight, Award, Users, Leaf } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { productsAPI } from "../services/api";
 import ProductCard from "../components/ProductCard";
@@ -10,17 +10,15 @@ const Home = () => {
   const { t } = useLanguage();
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { isBrand } = useAuth();
+  const { isCustomer, isBrand,isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
         const { data } = await productsAPI.getFeatured();
-        const products = data?.data || [];
-        setFeaturedProducts(products.slice(0, 4));
+        setFeaturedProducts((data?.data || []).slice(0, 6));
       } catch (error) {
-        console.error("Error fetching featured products:", error);
-        setFeaturedProducts([]);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -30,130 +28,177 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-[#f8f6f2] text-[#111]">
+      {/* HERO */}
+      <section className="relative h-[90vh] flex items-center justify-center text-center px-6">
+        <img
+          src="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
+          className="absolute inset-0 w-full h-full object-cover"
+          alt="Luxury Silk"
+        />
+        <div className="absolute inset-0 bg-black/30" />
 
-      <section
-        className="relative bg-cover bg-center h-[600px] flex items-center"
-        style={{
-          backgroundImage:
-            "url('https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            {t("home.hero.title")}
+        <div className="relative z-10 max-w-3xl text-white">
+          <h1 className="text-5xl md:text-7xl font-semibold leading-tight tracking-tight">
+            {t("home.hero.title") || "Luxury Silk,"}
+            <br />
+            <span className="text-white/90">
+              {t("home.hero.subtitle") || "Crafted to Perfection"}
+            </span>
           </h1>
-          <p className="text-2xl md:text-3xl mb-6">{t("home.hero.subtitle")}</p>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            {t("home.hero.description")}
+
+          <p className="mt-6 text-lg text-white/80 leading-relaxed">
+            {t("home.hero.description") ||
+              "Timeless silk garments designed with precision, elegance, and purpose."}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {isBrand ? (
+
+          <div className="mt-10 flex justify-center gap-4 flex-wrap">
+            {isBrand() ? (
               <Link
                 to="/services"
-                className="inline-flex items-center justify-center px-8 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition font-semibold"
+                className="px-8 py-3 bg-white text-black rounded-full text-sm tracking-wide hover:bg-gray-200 transition"
               >
-                Request a Quote
-                <ArrowRight className="ml-2" size={16} />
+                {t("home.hero.requestQuote") || "Request a Quote"}
               </Link>
             ) : (
               <Link
                 to="/products"
-                className="inline-flex items-center justify-center px-8 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition font-semibold"
+                className="px-8 py-3 bg-white text-black rounded-full text-sm tracking-wide hover:bg-gray-200 transition"
               >
-                {t("home.hero.shopNow")}
-                <ArrowRight className="ml-2" size={20} />
+                {t("home.hero.shopNow") || "Shop Collection"}
               </Link>
             )}
 
             <Link
               to="/about"
-              className="inline-flex items-center justify-center px-8 py-3 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-semibold"
+              className="px-8 py-3 border border-white text-white rounded-full text-sm tracking-wide hover:bg-white hover:text-black transition"
             >
-              {t("home.hero.learnMore")}
+              {t("home.hero.learnMore") || "Our Story"}
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            {t("home.values.title")}
+      {/* BRAND STATEMENT */}
+      <section className="py-24 pb-12 max-w-4xl mx-auto text-center px-6">
+        <h2 className="text-3xl md:text-5xl font-medium leading-tight tracking-tight">
+          {t("home.statement") ||
+            "Crafted with precision, inspired by tradition, designed for modern elegance."}
+        </h2>
+      </section>
+
+      {/* FEATURED PRODUCTS */}
+      {(isCustomer() || !isAuthenticated) && (
+        <section className="py-20 px-6 max-w-7xl mx-auto">
+          <div className="flex justify-between items-end mb-12">
+            <h2 className="text-3xl md:text-5xl font-medium tracking-tight">
+              {t("home.featured.title") || "Featured Collection"}
+            </h2>
+
+            <Link
+              to="/products"
+              className="text-sm text-gray-500 hover:text-black transition flex items-center gap-1"
+            >
+              {t("home.featured.viewAll") || "View All"}{" "}
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          {loading ? (
+            <div className="text-center py-16">Loading...</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+      {/* WHY CHOOSE US (LUXURY VERSION) */}
+      <section className="py-20 pt-10 px-6 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-medium tracking-tight">
+            {t("home.why.title") || "Why Choose Us"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-                <Award className="text-gray-800" size={32} />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">
-                {t("home.values.quality.title")}
-              </h3>
-              <p className="text-gray-600">
-                {t("home.values.quality.description")}
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-                <Users className="text-gray-800" size={32} />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">
-                {t("home.values.craftsmanship.title")}
-              </h3>
-              <p className="text-gray-600">
-                {t("home.values.craftsmanship.description")}
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-                <Leaf className="text-gray-800" size={32} />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">
-                {t("home.values.sustainability.title")}
-              </h3>
-              <p className="text-gray-600">
-                {t("home.values.sustainability.description")}
-              </p>
-            </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+          <div>
+            <h3 className="text-lg font-semibold mb-2">
+              {t("home.why.quality.title") || "Premium Quality"}
+            </h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              {t("home.why.quality.desc") ||
+                "Only the finest silk fabrics, carefully selected and inspected."}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">
+              {t("home.why.craft.title") || "Expert Craftsmanship"}
+            </h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              {t("home.why.craft.desc") ||
+                "Decades of expertise in silk garment production."}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">
+              {t("home.why.sustain.title") || "Sustainable Process"}
+            </h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              {t("home.why.sustain.desc") ||
+                "Eco-conscious methods for responsible luxury."}
+            </p>
           </div>
         </div>
       </section>
+      {/* B2B SECTION */}
+      <section className="py-24 px-6 bg-white text-center">
+        <h2 className="text-3xl md:text-5xl font-medium mb-6">
+          {t("home.b2b.title") || "Premium Manufacturing for Brands"}
+        </h2>
 
-      {!isBrand && (
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold">
-                {t("home.featured.title")}
-              </h2>
-              <Link
-                to="/products"
-                className="text-gray-800 hover:text-gray-600 font-semibold flex items-center"
-              >
-                {t("home.featured.viewAll")}
-                <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </div>
+        <p className="text-gray-500 max-w-2xl mx-auto mb-10">
+          {t("home.b2b.desc") ||
+            "Partner with us for custom silk manufacturing, private label production, and bulk orders."}
+        </p>
 
-            {loading ? (
-              <div className="flex justify-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-              </div>
-            ) : featuredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            ) : (
-              <p className="text-center text-gray-600 py-12">
-                {t("products.noProducts")}
-              </p>
-            )}
-          </div>
-        </section>
-      )}
+        <Link
+          to="/services"
+          className="px-8 py-3 bg-black text-white rounded-full text-sm tracking-wide hover:bg-gray-800 transition"
+        >
+          {t("home.b2b.cta") || "Work With Us"}
+        </Link>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="py-24 bg-black text-white text-center px-6">
+        <h2 className="text-3xl md:text-5xl font-medium mb-6">
+          {isBrand()
+            ? t("home.cta.brandTitle") || "Partner With Us"
+            : t("home.cta.customerTitle") || "Experience True Luxury"}
+        </h2>
+
+        <p className="text-gray-400 max-w-2xl mx-auto mb-10">
+          {isBrand()
+            ? t("home.cta.brandDesc") ||
+              "Collaborate with a trusted silk manufacturer."
+            : t("home.cta.customerDesc") ||
+              "Explore handcrafted silk garments."}
+        </p>
+
+        <Link
+          to={isCustomer() ? "/services" : "/products"}
+          className="px-8 py-3 bg-white text-black rounded-full text-sm tracking-wide hover:bg-gray-200 transition"
+        >
+          {isCustomer()
+            ? t("home.cta.explore") || "Explore Services"
+            : t("home.cta.shop") || "Shop Now"}
+        </Link>
+      </section>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-10">
 
         {/* TOP */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
 
           {/* BRAND */}
           <div>
@@ -18,29 +18,41 @@ const Footer = () => {
               Linces'CKF
             </h3>
             <p className="text-sm mt-1 text-gray-500">
-              Premium silk garments crafted with excellence.
+              {t('footer.tagline')}
             </p>
           </div>
 
           {/* LINKS */}
-          <div className="flex items-center gap-6 text-sm">
-            <Link to="/about" className="hover:text-white transition">
+          <nav className="flex items-center gap-6 text-sm">
+            <Link to="/about" className="hover:text-white transition-colors duration-200">
               {t('nav.about')}
             </Link>
-            <Link to="/products" className="hover:text-white transition">
+            <Link to="/products" className="hover:text-white transition-colors duration-200">
               {t('nav.products')}
             </Link>
-            <Link to="/contact" className="hover:text-white transition">
+            <Link to="/contact" className="hover:text-white transition-colors duration-200">
               {t('nav.contact')}
             </Link>
-          </div>
+          </nav>
 
           {/* SOCIAL */}
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="hover:text-white transition-colors duration-200"
+            >
               <Instagram size={18} />
             </a>
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
+              className="hover:text-white transition-colors duration-200"
+            >
               <Twitter size={18} />
             </a>
           </div>
@@ -52,12 +64,12 @@ const Footer = () => {
           <p>{t('footer.copyright')}</p>
 
           <div className="flex gap-4">
-            <a href="#" className="hover:text-white transition">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors duration-200">
               {t('footer.privacyPolicy')}
-            </a>
-            <a href="#" className="hover:text-white transition">
+            </Link>
+            <Link to="/terms" className="hover:text-white transition-colors duration-200">
               {t('footer.termsOfService')}
-            </a>
+            </Link>
           </div>
 
         </div>

@@ -61,6 +61,90 @@
     "backToProducts": "Volver a Productos"
   },
   "services": {
+    "hero": {
+      "title": {
+        "line1": "Da vida a tu visión",
+        "line2": ""
+      },
+      "description": "Asóciate con Linces'CKF para fabricación de seda de clase mundial.",
+      "ctaPrimary": "Solicitar cotización",
+      "ctaSecondary": "Ver portafolio"
+    },
+
+    "capabilities": {
+      "title": "Capacidades de fabricación",
+      "subtitle": "Soluciones completas para marcas de moda",
+
+      "custom": {
+        "title": "Fabricación personalizada",
+        "desc": "Convierte tus diseños en realidad"
+      },
+      "private": {
+        "title": "Producción de marca privada",
+        "desc": "Lanza tu propia línea de seda"
+      },
+      "bulk": {
+        "title": "Producción a gran escala",
+        "desc": "Escala tu producción fácilmente"
+      },
+      "quality": {
+        "title": "Control de calidad",
+        "desc": "Cada pieza es cuidadosamente inspeccionada"
+      }
+    },
+
+    "why": {
+      "title": "Por qué elegirnos",
+      "description": "Combinamos tradición y tecnología.",
+      "points": {
+        "materials": {
+          "title": "Materiales premium",
+          "desc": "Seda 100% auténtica"
+        },
+        "timeline": {
+          "title": "Entregas confiables",
+          "desc": "Producción puntual"
+        },
+        "logistics": {
+          "title": "Logística global",
+          "desc": "Envíos internacionales"
+        }
+      }
+    },
+
+    "process": {
+      "title": "Nuestro proceso",
+      "subtitle": "Desde la idea hasta la entrega",
+      "steps": {
+        "step1": {
+          "title": "Consulta de diseño",
+          "desc": "Comparte tu idea"
+        },
+        "step2": {
+          "title": "Selección de tela",
+          "desc": "Elige materiales"
+        },
+        "step3": {
+          "title": "Aprobación",
+          "desc": "Revisión final"
+        },
+        "step4": {
+          "title": "Producción",
+          "desc": "Producción y entrega"
+        }
+      }
+    },
+
+    "custom": {
+      "title": "¿Pedido personalizado?",
+      "cta": "Solicitar cotización"
+    },
+
+    "final": {
+      "title": "¿Listo para comenzar?",
+      "subtitle": "Únete a marcas líderes",
+      "cta": "Comenzar ahora"
+    },
     "title": "Servicios de Fabricación B2B",
     "subtitle": "Asóciate con nosotros para la fabricación de prendas de seda premium",
     "description": "Ofrecemos servicios integrales de fabricación para marcas que buscan crear productos de seda de alta calidad. Desde consultoría de diseño hasta producción final, manejamos cada paso con experiencia y cuidado.",
@@ -239,6 +323,7 @@
     "privacyPolicy": "Política de Privacidad",
     "termsOfService": "Términos de Servicio",
     "copyright": "© 2024 Linces'CKF. Todos los derechos reservados.",
-    "followUs": "Síguenos"
+    "followUs": "Síguenos",
+    "tagline": "Experimenta la Elegancia de la Seda con Linces'CKF"
   }
 }

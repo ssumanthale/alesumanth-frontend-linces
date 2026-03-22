@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { authAPI } from "../services/api";
+import { authAPI, productsAPI } from "../services/api";
+import { useLanguage } from "./LanguageContext";
 
 const AuthContext = createContext();
 
@@ -16,7 +17,11 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => {
     return localStorage.getItem("authToken") || null;
   });
+  const { t } = useLanguage();
+
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const initAuth = async () => {
@@ -109,7 +114,24 @@ export const AuthProvider = ({ children }) => {
 
   const isCustomer = () => {
     return user?.accountType === "customer";
-  }
+  };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const { data } = await productsAPI.getAll();
+        setProducts(data?.data || []);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setError(t("products.error"));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [t]);
   const value = {
     user,
     token,
@@ -120,7 +142,9 @@ export const AuthProvider = ({ children }) => {
     isAdmin,
     isAuthenticated: !!token,
     isBrand,
-    isCustomer
+    isCustomer,
+    products,
+    error,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -20,7 +20,6 @@ const ProductCard = ({ product }) => {
     e.stopPropagation();
 
     setAdding(true);
-
     try {
       await addToCart(product, 1);
     } catch (error) {
@@ -33,53 +32,61 @@ const ProductCard = ({ product }) => {
   return (
     <Link
       to={`/products/${product.id}`}
-      className="group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100"
+      className="group block"
     >
-      {/* Image */}
-      <div className="relative h-64 overflow-hidden bg-gray-100">
-        <img
-          src={
-            product.imageUrl ||
-            "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
-          }
-          alt={name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        />
+      <div className="bg-white rounded-2xl overflow-hidden transition-all duration-500 border border-gray-100 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
 
-        {/* Category Badge */}
-        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-gray-700 capitalize shadow">
-          {product.category}
-        </div>
-      </div>
+        {/* IMAGE */}
+        <div className="relative h-72 overflow-hidden">
+          <img
+            src={
+              product.imageUrl ||
+              "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
+            }
+            alt={name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
 
-      {/* Content */}
-      <div className="p-4 flex flex-col h-[150px] justify-between">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition">
-            {name}
-          </h3>
+          {/* DARK OVERLAY ON HOVER */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-500" />
 
-          <p className="text-gray-500 text-sm mt-1 line-clamp-2">
-            {description}
-          </p>
+          {/* CATEGORY */}
+          <div className="absolute top-4 left-4 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs tracking-wide text-gray-700 shadow-sm">
+            {product.category}
+          </div>
         </div>
 
-        {/* Bottom Row */}
-        <div className="flex items-center justify-between mt-3">
-          <span className="text-xl font-bold text-gray-900">
-            ${product.price?.toFixed(2)}
-          </span>
+        {/* CONTENT */}
+        <div className="p-5 flex flex-col justify-between h-[170px]">
 
-          {isAuthenticated && isCustomer() && (
-            <button
-              onClick={handleAddToCart}
-              disabled={adding}
-              className="flex items-center gap-1 bg-gray-900 text-white px-3 py-2 rounded-lg hover:bg-gray-800 transition text-sm disabled:opacity-50"
-            >
-              <ShoppingCart size={16} />
-              {adding ? "..." : t("products.addToCart")}
-            </button>
-          )}
+          <div>
+            <h3 className="text-lg font-medium text-[#111] tracking-tight group-hover:text-gray-700 transition">
+              {name}
+            </h3>
+
+            <p className="text-gray-500 text-sm mt-2 line-clamp-2 leading-relaxed">
+              {description}
+            </p>
+          </div>
+
+          {/* BOTTOM */}
+          <div className="flex items-center justify-between mt-4">
+
+            <span className="text-lg font-semibold text-black">
+              ${product.price?.toFixed(2)}
+            </span>
+
+            {isAuthenticated && isCustomer() && (
+              <button
+                onClick={handleAddToCart}
+                disabled={adding}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-black text-white text-xs tracking-wide hover:bg-gray-800 transition-all duration-300 disabled:opacity-50"
+              >
+                <ShoppingCart size={14} />
+                {adding ? "..." : t("products.addToCart")}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </Link>

@@ -12,6 +12,7 @@ const ProductDetails = () => {
   const { t } = useLanguage();
   const { addToCart } = useCart();
   const { isAuthenticated, isCustomer } = useAuth();
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,19 +24,18 @@ const ProductDetails = () => {
       try {
         setLoading(true);
         setError(null);
+
         const response = await productsAPI.getById(id);
         const productData = response.data.data;
 
-        const formattedProduct = {
+        setProduct({
           id: productData.id,
           name: productData.name_en,
           description: productData.description_en,
           price: parseFloat(productData.price),
           image: productData.imageUrl,
           category: productData.category,
-        };
-
-        setProduct(formattedProduct);
+        });
       } catch (error) {
         console.error("Error fetching product:", error);
         setError(t("productDetails.error"));
@@ -58,26 +58,28 @@ const ProductDetails = () => {
     }
   };
 
+  // LOADING
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#f8f6f2]">
+        <div className="animate-spin rounded-full h-14 w-14 border-t-2 border-black"></div>
       </div>
     );
   }
 
+  // ERROR
   if (error || !product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#f8f6f2]">
         <div className="text-center">
-          <p className="text-red-600 text-lg mb-4">
+          <p className="text-red-500 text-lg mb-4">
             {error || t("productDetails.error")}
           </p>
           <Link
             to="/products"
-            className="text-gray-800 hover:text-gray-600 font-semibold flex items-center justify-center"
+            className="text-black hover:opacity-70 flex items-center justify-center"
           >
-            <ArrowLeft className="mr-2" size={20} />
+            <ArrowLeft className="mr-2" size={18} />
             {t("productDetails.backToProducts")}
           </Link>
         </div>
@@ -86,70 +88,100 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-[#f8f6f2] py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* BACK */}
         <Link
           to="/products"
-          className="inline-flex items-center text-gray-700 hover:text-gray-900 mb-8"
+          className="inline-flex items-center text-sm text-gray-600 hover:text-black mb-10 transition"
         >
-          <ArrowLeft className="mr-2" size={20} />
+          <ArrowLeft className="mr-2" size={16} />
           {t("productDetails.backToProducts")}
         </Link>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="bg-white rounded-lg overflow-hidden shadow-lg">
-            <img
-              src={
-                product.image ||
-                "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
-              }
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
+        {/* MAIN GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+          {/* LEFT - IMAGE */}
+          <div className="rounded-2xl overflow-hidden bg-white">
+            <div className="h-[500px] overflow-hidden">
+              <img
+                src={
+                  product.image ||
+                  "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
+                }
+                alt={product.name}
+                className="w-full h-full object-cover hover:scale-105 transition duration-700"
+              />
+            </div>
           </div>
 
-          <div className="bg-white rounded-lg p-8 shadow-lg">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          {/* RIGHT - DETAILS */}
+          <div className="flex flex-col justify-center">
+
+            {/* CATEGORY */}
+            {product.category && (
+              <span className="text-xs tracking-widest uppercase text-gray-500 mb-3">
+                {product.category}
+              </span>
+            )}
+
+            {/* NAME */}
+            <h1 className="text-4xl md:text-5xl font-semibold text-[#111] tracking-tight mb-4">
               {product.name}
             </h1>
-            <p className="text-3xl font-bold text-gray-900 mb-6">
+
+            {/* PRICE */}
+            <p className="text-2xl font-medium text-black mb-6">
               ${product.price?.toFixed(2)}
             </p>
 
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-2">
-                {t("productDetails.description")}
-              </h2>
-              <p className="text-gray-700 leading-relaxed">
-                {product.description}
-              </p>
-            </div>
+            {/* DESCRIPTION */}
+            <p className="text-gray-600 leading-relaxed mb-8 max-w-md">
+              {product.description}
+            </p>
 
-            {product.category && (
-              <div className="mb-6">
-                <p className="text-gray-600">
-                  <span className="font-semibold">Category:</span>{" "}
-                  {product.category}
-                </p>
+            {/* QUANTITY */}
+            {isAuthenticated && isCustomer() && (
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-sm text-gray-600">Qty</span>
+                <div className="flex items-center border rounded-full overflow-hidden">
+                  <button
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    className="px-4 py-2 text-lg hover:bg-gray-100"
+                  >
+                    -
+                  </button>
+                  <span className="px-4">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity((q) => q + 1)}
+                    className="px-4 py-2 text-lg hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
             )}
 
-            {isAuthenticated && isCustomer()  && (
-              <div className="space-y-4">
-                <button
-                  onClick={handleAddToCart}
-                  disabled={adding}
-                  className="w-full bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition flex items-center justify-center space-x-2 text-lg font-semibold disabled:opacity-50"
-                >
-                  <ShoppingCart size={24} />
-                  <span>
-                    {adding
-                      ? t("common.loading")
-                      : t("productDetails.addToCart")}
-                  </span>
-                </button>
-              </div>
+            {/* CTA */}
+            {isAuthenticated && isCustomer() && (
+              <button
+                onClick={handleAddToCart}
+                disabled={adding}
+                className="w-full md:w-[300px] bg-black text-white py-4 rounded-full flex items-center justify-center gap-3 text-sm tracking-wide hover:bg-gray-800 transition-all duration-300 disabled:opacity-50"
+              >
+                <ShoppingCart size={18} />
+                {adding
+                  ? t("common.loading")
+                  : t("productDetails.addToCart")}
+              </button>
             )}
+
+            {/* EXTRA TRUST TEXT */}
+            <p className="text-xs text-gray-400 mt-6">
+              Premium silk • Handcrafted quality • Trusted manufacturing
+            </p>
           </div>
         </div>
       </div>

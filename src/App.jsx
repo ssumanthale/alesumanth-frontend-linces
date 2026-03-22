@@ -28,6 +28,7 @@ import EditProduct from "./pages/admin/EditProduct";
 import AdminQuotes from "./pages/admin/AdminQuotes";
 import AdminQuoteDetails from "./pages/admin/AdminQuoteDetails";
 import MainLayout from "./layouts/MainLayout";
+import OrderSuccess from "./pages/OrderSuccess";
 
 function App() {
   return (
@@ -57,6 +58,14 @@ function App() {
                       }
                     />
 
+                    <Route
+                      path="/order-success"
+                      element={
+                        <ProtectedRoute>
+                          <OrderSuccess />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route
                       path="/checkout"
                       element={

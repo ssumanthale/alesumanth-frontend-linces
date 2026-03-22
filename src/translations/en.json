@@ -11,34 +11,56 @@
     "logout": "Logout",
     "admin": "Admin"
   },
+
   "home": {
     "hero": {
-      "title": "Linces'CKF",
-      "subtitle": "Premium Silk Garments",
-      "description": "Discover the finest silk clothing, handcrafted with passion and precision. Elevate your wardrobe with timeless elegance.",
-      "shopNow": "Shop Now",
-      "learnMore": "Learn More"
+      "title": "Luxury Silk,",
+      "subtitle": "Crafted to Perfection",
+      "description": "Timeless silk garments designed with precision, elegance, and purpose.",
+      "shopNow": "Shop Collection",
+      "learnMore": "Our Story",
+      "requestQuote": "Request a Quote"
     },
-    "featured": {
-      "title": "Featured Products",
-      "viewAll": "View All Products"
-    },
-    "values": {
-      "title": "Why Choose Linces'CKF",
+    "statement": "Crafted with precision, inspired by tradition, designed for modern elegance.",
+    "why": {
+      "title": "Why Choose Us",
       "quality": {
         "title": "Premium Quality",
-        "description": "100% authentic silk, sourced from the finest suppliers worldwide"
+        "desc": "Only the finest silk fabrics, carefully selected and inspected."
       },
-      "craftsmanship": {
+      "craft": {
         "title": "Expert Craftsmanship",
-        "description": "Each piece is meticulously crafted by skilled artisans"
+        "desc": "Decades of expertise in silk garment production."
       },
-      "sustainability": {
-        "title": "Sustainable",
-        "description": "Eco-friendly production methods that respect our planet"
+      "sustain": {
+        "title": "Sustainable Process",
+        "desc": "Eco-conscious methods for responsible luxury."
       }
+    },
+    "featured": {
+      "title": "Featured Collection",
+      "viewAll": "View All"
+    },
+    "b2b": {
+      "title": "Premium Manufacturing for Brands",
+      "desc": "Partner with us for custom silk manufacturing, private label production, and bulk orders.",
+      "cta": "Work With Us"
+    },
+    "cta": {
+      "brandTitle": "Partner With Us",
+      "customerTitle": "Experience True Luxury",
+      "brandDesc": "Collaborate with a trusted silk manufacturer.",
+      "customerDesc": "Explore handcrafted silk garments.",
+      "explore": "Explore Services",
+      "shop": "Shop Now"
     }
   },
+
+
+
+
+ 
+
   "products": {
     "title": "Our Products",
     "loading": "Loading products...",
@@ -59,8 +81,94 @@
     "material": "Material",
     "careInstructions": "Care Instructions",
     "backToProducts": "Back to Products"
+    
   },
+
   "services": {
+    "hero": {
+      "title": {
+        "line1": "Bring Your Vision",
+        "line2": "To Life"
+      },
+      "description": "Partner with Linces'CKF for world-class silk garment manufacturing. From concept to creation, we deliver excellence at scale.",
+      "ctaPrimary": "Request a Quote",
+      "ctaSecondary": "View Portfolio"
+    },
+
+    "capabilities": {
+      "title": "Manufacturing Capabilities",
+      "subtitle": "Comprehensive solutions for fashion brands seeking premium silk production",
+
+      "custom": {
+        "title": "Custom Design Manufacturing",
+        "desc": "Transform your designs into reality with expert pattern making and sampling"
+      },
+      "private": {
+        "title": "Private Label Production",
+        "desc": "Launch your own silk line with our white-label manufacturing expertise"
+      },
+      "bulk": {
+        "title": "Bulk Order Manufacturing",
+        "desc": "Scale your production with high-capacity facilities"
+      },
+      "quality": {
+        "title": "Quality Assurance",
+        "desc": "Every piece undergoes strict quality control"
+      }
+    },
+
+    "why": {
+      "title": "Why Partner With Us",
+      "description": "We combine traditional craftsmanship with modern excellence.",
+      "points": {
+        "materials": {
+          "title": "Premium Materials",
+          "desc": "100% authentic silk sourced globally"
+        },
+        "timeline": {
+          "title": "Reliable Timelines",
+          "desc": "On-time delivery with full transparency"
+        },
+        "logistics": {
+          "title": "Global Logistics",
+          "desc": "Seamless worldwide shipping"
+        }
+      }
+    },
+
+    "process": {
+      "title": "Our Production Process",
+      "subtitle": "From concept to delivery",
+      "steps": {
+        "step1": {
+          "title": "Design Consultation",
+          "desc": "Share your vision with our team"
+        },
+        "step2": {
+          "title": "Fabric Selection & Sampling",
+          "desc": "Choose materials and approve samples"
+        },
+        "step3": {
+          "title": "Sample Creation & Approval",
+          "desc": "Review and finalize design"
+        },
+        "step4": {
+          "title": "Mass Production & Delivery",
+          "desc": "Production with quality control and delivery"
+        }
+      }
+    },
+
+    "custom": {
+      "title": "Need a Custom Order?",
+      "cta": "Request a Quote"
+    },
+
+    "final": {
+      "title": "Ready to Start Your Project?",
+      "subtitle": "Join brands who trust Linces'CKF",
+      "cta": "Get Started Today"
+    },
     "title": "B2B Manufacturing Services",
     "subtitle": "Partner with us for premium silk garment manufacturing",
     "description": "We offer comprehensive manufacturing services for brands looking to create high-quality silk products. From design consultation to final production, we handle every step with expertise and care.",
@@ -239,6 +347,7 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "copyright": "© 2026 Linces'CKF. All rights reserved.",
-    "followUs": "Follow Us"
+    "followUs": "Follow Us",
+    "tagline": "Experience the Elegance of Silk with Linces'CKF"
   }
 }

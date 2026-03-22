@@ -6,90 +6,122 @@ const About = () => {
   const { t } = useLanguage();
 
   return (
-    <>
-      <div className="min-h-screen bg-gray-50 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              {t("about.title")}
-            </h1>
-          </div>
+    <div className="bg-[#f8f6f2] text-[#111]">
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img
-                src="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
-                alt="About Linces'CKF"
-                className="w-full h-full object-cover"
-              />
-            </div>
+      {/* HERO */}
+      <div className="max-w-5xl mx-auto px-6 pt-20 pb-16 text-center">
+        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight leading-tight">
+          {t("about.title")}
+        </h1>
+        <p className="mt-6 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          Crafting timeless silk garments with precision, passion, and purpose.
+        </p>
+      </div>
 
-            <div className="space-y-8">
-              <div className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  {t("about.story.title")}
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {t("about.story.content")}
-                </p>
-              </div>
+      {/* IMAGE + STORY */}
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pb-20">
+        
+        {/* IMAGE */}
+        <div className="overflow-hidden rounded-2xl">
+          <img
+            src="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
+            alt="About Linces'CKF"
+            className="w-full h-[500px] object-cover hover:scale-105 transition duration-700"
+          />
+        </div>
 
-              <div className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  {t("about.mission.title")}
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {t("about.mission.content")}
-                </p>
-              </div>
-            </div>
-          </div>
+        {/* STORY */}
+        <div>
+          <h2 className="text-3xl md:text-4xl font-medium mb-6 tracking-tight">
+            {t("about.story.title")}
+          </h2>
+          <p className="text-gray-600 leading-relaxed mb-8">
+            {t("about.story.content")}
+          </p>
 
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              {t("about.values.title")}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-                  <Award className="text-gray-800" size={32} />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {t("about.values.quality")}
-                </h3>
-              </div>
-
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-                  <Heart className="text-gray-800" size={32} />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {t("about.values.sustainability")}
-                </h3>
-              </div>
-
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-                  <Users className="text-gray-800" size={32} />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {t("about.values.craftsmanship")}
-                </h3>
-              </div>
-
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-                  <Target className="text-gray-800" size={32} />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {t("about.values.integrity")}
-                </h3>
-              </div>
-            </div>
-          </div>
+          <h2 className="text-3xl md:text-4xl font-medium mb-6 tracking-tight">
+            {t("about.mission.title")}
+          </h2>
+          <p className="text-gray-600 leading-relaxed">
+            {t("about.mission.content")}
+          </p>
         </div>
       </div>
-    </>
+
+      {/* DIVIDER */}
+      <div className="border-t border-gray-200 my-10"></div>
+
+      {/* VALUES */}
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        <h2 className="text-3xl md:text-4xl text-center font-medium mb-16 tracking-tight">
+          {t("about.values.title")}
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+
+          <div className="group">
+            <div className="flex justify-center mb-5">
+              <Award size={28} className="text-gray-700 group-hover:text-black transition" />
+            </div>
+            <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-2">
+              Excellence
+            </h3>
+            <p className="text-gray-800 font-medium">
+              {t("about.values.quality")}
+            </p>
+          </div>
+
+          <div className="group">
+            <div className="flex justify-center mb-5">
+              <Heart size={28} className="text-gray-700 group-hover:text-black transition" />
+            </div>
+            <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-2">
+              Responsibility
+            </h3>
+            <p className="text-gray-800 font-medium">
+              {t("about.values.sustainability")}
+            </p>
+          </div>
+
+          <div className="group">
+            <div className="flex justify-center mb-5">
+              <Users size={28} className="text-gray-700 group-hover:text-black transition" />
+            </div>
+            <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-2">
+              Craft
+            </h3>
+            <p className="text-gray-800 font-medium">
+              {t("about.values.craftsmanship")}
+            </p>
+          </div>
+
+          <div className="group">
+            <div className="flex justify-center mb-5">
+              <Target size={28} className="text-gray-700 group-hover:text-black transition" />
+            </div>
+            <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-2">
+              Integrity
+            </h3>
+            <p className="text-gray-800 font-medium">
+              {t("about.values.integrity")}
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      {/* CTA SECTION (NEW - VERY IMPORTANT) */}
+      <div className="bg-black text-white py-20 text-center">
+        <h2 className="text-3xl md:text-4xl font-medium mb-6">
+          Partner with us for premium silk manufacturing
+        </h2>
+        <button className="px-8 py-3 rounded-full bg-white text-black text-sm tracking-wide hover:bg-gray-200 transition">
+          Work With Us
+        </button>
+      </div>
+
+      <Footer />
+    </div>
   );
 };
 

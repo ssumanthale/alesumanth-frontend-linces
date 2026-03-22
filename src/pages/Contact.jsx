@@ -2,15 +2,16 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Clock, MessageSquare } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { contactAPI } from "../services/api";
-import Footer from "../components/Footer";
 
 const Contact = () => {
   const { t } = useLanguage();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
 
@@ -29,13 +30,9 @@ const Contact = () => {
     try {
       await contactAPI.send(formData);
       setMessage({ type: "success", text: t("contact.form.success") });
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error(error);
       setMessage({ type: "error", text: t("contact.form.error") });
     } finally {
       setLoading(false);
@@ -43,171 +40,144 @@ const Contact = () => {
   };
 
   return (
-    <>
-      <div className="min-h-screen bg-gray-50 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              {t("contact.title")}
-            </h1>
-            <p className="text-xl text-gray-600">{t("contact.subtitle")}</p>
+    <div className="bg-[#f8f6f2] min-h-screen py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+
+        {/* HEADER */}
+        <div className="text-center mb-20 max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-[#111]">
+            {t("contact.title")}
+          </h1>
+          <p className="text-gray-500 mt-4 leading-relaxed">
+            {t("contact.subtitle")}
+          </p>
+        </div>
+
+        {/* GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+
+          {/* LEFT - INFO */}
+          <div className="space-y-10">
+
+            <div className="flex items-start gap-4">
+              <Mail size={20} className="text-gray-500 mt-1" />
+              <div>
+                <p className="text-sm text-gray-400 uppercase tracking-widest">Email</p>
+                <a href="mailto:info@lincesckf.com" className="text-lg text-[#111] hover:opacity-70 transition">
+                  info@lincesckf.com
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <Phone size={20} className="text-gray-500 mt-1" />
+              <div>
+                <p className="text-sm text-gray-400 uppercase tracking-widest">Phone</p>
+                <p className="text-lg text-[#111]">+1 (234) 567-890</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <MessageSquare size={20} className="text-gray-500 mt-1" />
+              <div>
+                <p className="text-sm text-gray-400 uppercase tracking-widest">WhatsApp</p>
+                <a
+                  href="https://wa.me/1234567890"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg text-[#111] hover:opacity-70 transition"
+                >
+                  +1 (234) 567-890
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <MapPin size={20} className="text-gray-500 mt-1" />
+              <div>
+                <p className="text-sm text-gray-400 uppercase tracking-widest">Address</p>
+                <p className="text-lg text-[#111]">
+                  123 Silk Avenue, Fashion District, NY
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <Clock size={20} className="text-gray-500 mt-1" />
+              <div>
+                <p className="text-sm text-gray-400 uppercase tracking-widest">Hours</p>
+                <p className="text-lg text-[#111]">
+                  {t("contact.hoursValue")}
+                </p>
+              </div>
+            </div>
+
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow-md p-6 flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <Mail className="text-gray-800" size={24} />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                    {t("contact.email")}
-                  </h3>
-                  <a
-                    href="mailto:info@lincesckf.com"
-                    className="text-gray-600 hover:text-gray-900 transition"
-                  >
-                    info@lincesckf.com
-                  </a>
-                </div>
+          {/* RIGHT - FORM */}
+          <div className="bg-white rounded-2xl p-10 border border-gray-100">
+
+            <h2 className="text-2xl font-medium mb-8 tracking-tight">
+              {t("contact.form.title")}
+            </h2>
+
+            {message.text && (
+              <div
+                className={`mb-6 p-4 rounded-lg text-sm ${
+                  message.type === "success"
+                    ? "bg-green-50 text-green-700"
+                    : "bg-red-50 text-red-600"
+                }`}
+              >
+                {message.text}
               </div>
+            )}
 
-              <div className="bg-white rounded-lg shadow-md p-6 flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <Phone className="text-gray-800" size={24} />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                    {t("contact.phone")}
-                  </h3>
-                  <a
-                    href="tel:+1234567890"
-                    className="text-gray-600 hover:text-gray-900 transition"
-                  >
-                    +1 (234) 567-890
-                  </a>
-                </div>
-              </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
 
-              <div className="bg-white rounded-lg shadow-md p-6 flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <MessageSquare className="text-gray-800" size={24} />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                    {t("contact.whatsapp")}
-                  </h3>
-                  <a
-                    href="https://wa.me/1234567890"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-gray-900 transition"
-                  >
-                    +1 (234) 567-890
-                  </a>
-                </div>
-              </div>
+              <input
+                type="text"
+                name="name"
+                placeholder={t("contact.form.name")}
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="w-full border-b border-gray-300 bg-transparent py-3 focus:outline-none focus:border-black transition"
+              />
 
-              <div className="bg-white rounded-lg shadow-md p-6 flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <MapPin className="text-gray-800" size={24} />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                    {t("contact.address")}
-                  </h3>
-                  <p className="text-gray-600">
-                    123 Silk Avenue, Fashion District, NY 10001
-                  </p>
-                </div>
-              </div>
+              <input
+                type="email"
+                name="email"
+                placeholder={t("contact.form.email")}
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full border-b border-gray-300 bg-transparent py-3 focus:outline-none focus:border-black transition"
+              />
 
-              <div className="bg-white rounded-lg shadow-md p-6 flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <Clock className="text-gray-800" size={24} />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                    {t("contact.hours")}
-                  </h3>
-                  <p className="text-gray-600">{t("contact.hoursValue")}</p>
-                </div>
-              </div>
-            </div>
+              <textarea
+                name="message"
+                placeholder={t("contact.form.message")}
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows="5"
+                className="w-full border-b border-gray-300 bg-transparent py-3 focus:outline-none focus:border-black transition"
+              />
 
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                {t("contact.form.title")}
-              </h2>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-black text-white py-4 rounded-full text-sm tracking-wide hover:bg-gray-800 transition disabled:opacity-50"
+              >
+                {loading ? t("common.loading") : t("contact.form.submit")}
+              </button>
 
-              {message.text && (
-                <div
-                  className={`mb-6 p-4 rounded-lg ${
-                    message.type === "success"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-100 text-red-800"
-                  }`}
-                >
-                  {message.text}
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t("contact.form.name")}
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t("contact.form.email")}
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t("contact.form.message")}
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows="6"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition font-semibold disabled:opacity-50"
-                >
-                  {loading ? t("common.loading") : t("contact.form.submit")}
-                </button>
-              </form>
-            </div>
+            </form>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
