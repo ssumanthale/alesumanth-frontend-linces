@@ -12,6 +12,11 @@ const Navigation = () => {
   const { t, language, toggleLanguage } = useLanguage();
   const { isAuthenticated, logout, isAdmin, user } = useAuth();
   const { getCartItemsCount } = useCart();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -19,11 +24,6 @@ const Navigation = () => {
     logout();
     setIsOpen(false);
   };
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,245 +34,217 @@ const Navigation = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled
-        ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100'
-        : 'bg-white/40 backdrop-blur-sm'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-16">
+          {/* LOGO */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <span className="text-lg font-bold tracking-wide text-gray-900 group-hover:text-gray-700 transition-colors">Linces'CKF</span>
+            <span className="text-2xl font-semibold tracking-tight text-gray-900 group-hover:opacity-80 transition">
+              Linces'CKF
+            </span>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-1">
-            <Link
-              to="/"
-              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
-            >
-              {t("nav.home")}
-            </Link>
-            <Link
-              to="/products"
-              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
-            >
-              {t("nav.products")}
-            </Link>
-            <Link
-              to="/services"
-              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
-            >
-              {t("nav.services")}
-            </Link>
-            <Link
-              to="/about"
-              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
-            >
-              {t("nav.about")}
-            </Link>
-            <Link
-              to="/contact"
-              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
-            >
-              {t("nav.contact")}
-            </Link>
+          {/* DESKTOP LINKS */}
+          <div className="hidden md:flex items-center space-x-10 text-sm font-medium">
+            {[
+              { name: "home", path: "/" },
+              { name: "products", path: "/products" },
+              { name: "services", path: "/services" },
+              { name: "about", path: "/about" },
+              { name: "contact", path: "/contact" },
+            ].map((item) => {
+              const isActive =
+                item.path === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.path);
+
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="relative group text-gray-600 hover:text-black transition"
+                >
+                  {t(`nav.${item.name}`)}
+
+                  {/* underline */}
+                  <span
+                    className={`
+            absolute left-0 -bottom-1 h-[2px] bg-black transition-all duration-300
+            ${isActive ? "w-full" : "w-0 group-hover:w-full"}
+          `}
+                  />
+                </Link>
+              );
+            })}
           </div>
 
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={toggleLanguage}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 flex items-center space-x-1 text-gray-700 hover:text-gray-900"
-              aria-label="Toggle language"
-            >
-              <Globe size={18} />
-              <span className="text-xs font-semibold">
-                {language.toUpperCase()}
+     {/* RIGHT SECTION */}
+<div className="flex items-center gap-2 md:gap-3">
+
+  {/* LANGUAGE */}
+  <button
+    onClick={toggleLanguage}
+    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 hover:shadow-sm transition text-xs md:text-sm font-medium"
+  >
+    <Globe size={16} />
+    {language.toUpperCase()}
+  </button>
+
+  {/* USER ACTIONS */}
+  {isAuthenticated && !isAdmin() && (
+    <div className="flex items-center gap-1 md:gap-2">
+      
+      {user?.accountType === "customer" && (
+        <>
+          {/* CART */}
+          <Link
+            to="/cart"
+            className="relative flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+          >
+            <ShoppingCart size={20} />
+
+            {getCartItemsCount() > 0 && (
+              <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] font-medium rounded-full h-5 min-w-[20px] px-1 flex items-center justify-center">
+                {getCartItemsCount()}
               </span>
-            </button>
-
-            {isAuthenticated && !isAdmin() && (
-              <>
-                {user?.accountType === "customer" && (
-                  <>
-                    <Link
-                      to="/cart"
-                      className="relative p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 text-gray-700 hover:text-gray-900"
-                      title="Cart"
-                    >
-                      <ShoppingCart size={18} />
-                      {getCartItemsCount() > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-amber-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                          {getCartItemsCount()}
-                        </span>
-                      )}
-                    </Link>
-                    <Link
-                      to="/orders"
-                      className="hidden md:block p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 text-gray-700 hover:text-gray-900"
-                      title="Orders"
-                    >
-                      <Package size={18} />
-                    </Link>
-                  </>
-                )}
-                {user?.accountType === "brand" && (
-                  <Link
-                    to="/quotes"
-                    className="hidden md:block p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 text-gray-700 hover:text-gray-900"
-                    title="Quotes"
-                  >
-                    <FileText size={18} />
-                  </Link>
-                )}
-              </>
             )}
+          </Link>
 
-            {isAuthenticated ? (
-              <>
-                {isAdmin() ? (
-                  <>
-                    <Link
-                      to="/admin/dashboard"
-                      className="hidden md:block px-3 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium"
-                    >
-                      {t("nav.admin")}
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="hidden md:block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 transition-all duration-200"
-                    >
-                      {t("nav.logout")}
-                    </button>
-                  </>
-                ) : (
-                  <div className="hidden md:block">
-                    <UserMenu />
-                  </div>
-                )}
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="hidden md:block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 transition-all duration-200"
-                >
-                  {t("nav.login")}
-                </Link>
-                <Link
-                  to="/register"
-                  className="hidden md:block px-3 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium"
-                >
-                  {t("nav.register")}
-                </Link>
-              </>
-            )}
+          {/* ORDERS */}
+          <Link
+            to="/orders"
+            className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+          >
+            <Package size={20} />
+          </Link>
+        </>
+      )}
 
-            <button
-              onClick={toggleMenu}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 text-gray-700 hover:text-gray-900"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
+      {user?.accountType === "brand" && (
+        <Link
+          to="/quotes"
+          className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+        >
+          <FileText size={20} />
+        </Link>
+      )}
+    </div>
+  )}
+
+  {/* AUTH */}
+  {isAuthenticated ? (
+    isAdmin() ? (
+      <div className="hidden md:flex items-center gap-2 ml-2">
+        <Link
+          to="/admin/products"
+          className="px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium hover:opacity-90 hover:shadow-md transition"
+        >
+          {t("nav.admin")}
+        </Link>
+
+        <button
+          onClick={handleLogout}
+          className="px-3 py-1.5 rounded-full text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition"
+        >
+          {t("nav.logout")}
+        </button>
+      </div>
+    ) : (
+      <div className="hidden md:block ml-2">
+        <UserMenu />
+      </div>
+    )
+  ) : (
+    <div className="hidden md:flex items-center gap-2 ml-2">
+      <Link
+        to="/login"
+        className="px-3 py-1.5 rounded-full text-sm text-gray-600 hover:text-black hover:bg-gray-100 transition"
+      >
+        {t("nav.login")}
+      </Link>
+
+      <Link
+        to="/register"
+        className="px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium hover:opacity-90 hover:shadow-md transition"
+      >
+        {t("nav.register")}
+      </Link>
+    </div>
+  )}
+
+  {/* MOBILE MENU BUTTON */}
+  <button
+    onClick={toggleMenu}
+    className="md:hidden flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition"
+  >
+    {isOpen ? <X size={20} /> : <Menu size={20} />}
+  </button>
+</div>
         </div>
       </div>
 
-      {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
-          <div className="px-4 py-3 space-y-2">
+      {/* MOBILE MENU */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ${
+          isOpen ? "max-h-[500px]" : "max-h-0"
+        }`}
+      >
+        <div className="px-6 py-4 space-y-3 bg-white border-t">
+          {["home", "products", "services", "about", "contact"].map((item) => (
             <Link
-              to="/"
-              className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
+              key={item}
+              to={item === "home" ? "/" : `/${item}`}
               onClick={toggleMenu}
+              className="block text-gray-700 py-2 hover:text-black transition"
             >
-              {t("nav.home")}
+              {t(`nav.${item}`)}
             </Link>
-            <Link
-              to="/products"
-              className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-              onClick={toggleMenu}
-            >
-              {t("nav.products")}
-            </Link>
-            <Link
-              to="/services"
-              className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-              onClick={toggleMenu}
-            >
-              {t("nav.services")}
-            </Link>
-            <Link
-              to="/about"
-              className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-              onClick={toggleMenu}
-            >
-              {t("nav.about")}
-            </Link>
-            <Link
-              to="/contact"
-              className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-              onClick={toggleMenu}
-            >
-              {t("nav.contact")}
-            </Link>
-            {isAuthenticated ? (
-              <>
-                {user?.accountType === "customer" && !isAdmin() && (
-                  <Link
-                    to="/orders"
-                    className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-                    onClick={toggleMenu}
-                  >
-                    My Orders
-                  </Link>
-                )}
-                {user?.accountType === "brand" && !isAdmin() && (
-                  <Link
-                    to="/quotes"
-                    className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-                    onClick={toggleMenu}
-                  >
-                    My Quotes
-                  </Link>
-                )}
-                {isAdmin() && (
-                  <Link
-                    to="/admin/dashboard"
-                    className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-                    onClick={toggleMenu}
-                  >
-                    {t("nav.admin")}
-                  </Link>
-                )}
-                <button
-                  onClick={handleLogout}
-                  className="block w-full text-left px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-                >
-                  {t("nav.logout")}
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="block px-3 py-2.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 text-sm font-medium"
-                  onClick={toggleMenu}
-                >
-                  {t("nav.login")}
+          ))}
+
+          {isAuthenticated ? (
+            <>
+              {user?.accountType === "customer" && !isAdmin() && (
+                <Link to="/orders" onClick={toggleMenu} className="block py-2">
+                  My Orders
                 </Link>
-                <Link
-                  to="/register"
-                  className="block px-3 py-2.5 bg-gray-900 text-white hover:bg-gray-800 rounded-lg transition-all duration-200 text-sm font-medium"
-                  onClick={toggleMenu}
-                >
-                  {t("nav.register")}
+              )}
+
+              {user?.accountType === "brand" && !isAdmin() && (
+                <Link to="/quotes" onClick={toggleMenu} className="block py-2">
+                  My Quotes
                 </Link>
-              </>
-            )}
-          </div>
+              )}
+
+              {isAdmin() && (
+                <Link
+                  to="/admin/products"
+                  onClick={toggleMenu}
+                  className="block py-2"
+                >
+                  {t("nav.admin")}
+                </Link>
+              )}
+
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left py-2 text-gray-700"
+              >
+                {t("nav.logout")}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" onClick={toggleMenu} className="block py-2">
+                {t("nav.login")}
+              </Link>
+
+              <Link to="/register" onClick={toggleMenu} className="block py-2">
+                {t("nav.register")}
+              </Link>
+            </>
+          )}
         </div>
-      )}
+      </div>
     </nav>
   );
 };

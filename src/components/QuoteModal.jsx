@@ -3,7 +3,6 @@ import { AlertCircle, CheckCircle, X } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import QuoteForm from "./brand/QuoteForm";
 import { Link } from "react-router-dom";
-import { quotesAPI } from "../services/api";
 
 export default function QuoteModal({ isOpen, onClose }) {
   const { isAuthenticated } = useAuth();

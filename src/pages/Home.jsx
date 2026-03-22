@@ -30,7 +30,8 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-white">
+    <div>
+
       <section
         className="relative w-full h-screen bg-cover bg-center flex items-center justify-center overflow-hidden pt-16"
         style={{

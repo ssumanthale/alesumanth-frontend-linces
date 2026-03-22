@@ -42,7 +42,7 @@ export const authAPI = {
 };
 
 export const productsAPI = {
-  getAll: () => apiClient.get("/products"),
+  getAll: () => apiClient.get("/products?limit=100"),
   getById: (id) => apiClient.get(`/products/${id}`),
   getFeatured: () => apiClient.get("/products"),
   create: (productData) => apiClient.post("/products", productData),
@@ -50,10 +50,39 @@ export const productsAPI = {
   delete: (id) => apiClient.delete(`/products/${id}`),
 };
 
+// export const quotesAPI = {
+//   create: (quoteData) => apiClient.post("/quotes", quoteData),
+//   get: (params) => apiClient.get("/quotes", { params }),
+//   getAll: () => apiClient.get("/quotes/all"),
+//   getById: (id) => apiClient.get(`/quotes/${id}`),
+//   getByIdAdmin: (id) => apiClient.get(`/quotes/all/${id}`),
+// };
+
+
 export const quotesAPI = {
+  // ---------------- USER ----------------
+
+  // Create quote request
   create: (quoteData) => apiClient.post("/quotes", quoteData),
-  getAll: (params) => apiClient.get("/quotes", { params }),
+
+  // Get logged-in user's quotes (paginated)d
+  getMyQuotes: (params) => apiClient.get("/quotes", { params }),
+
+  // Get single quote (user)
   getById: (id) => apiClient.get(`/quotes/${id}`),
+
+
+  // ---------------- ADMIN ----------------
+
+  // Get all quotes (admin)
+  getAll: (params) => apiClient.get("/quotes/all", { params }),
+
+  // Get single quote (admin)
+  getByIdAdmin: (id) => apiClient.get(`/quotes/all/${id}`),
+
+  // ✅ NEW: Update quote status + response
+  updateStatus: (id, data) =>
+    apiClient.put(`/quotes/admin/${id}/status`, data),
 };
 
 export const contactAPI = {

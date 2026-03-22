@@ -1,25 +1,28 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { useLanguage } from '../../contexts/LanguageContext';
-import { productsAPI } from '../../services/api';
-import AdminLayout from '../../components/admin/AdminLayout';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { useLanguage } from "../../contexts/LanguageContext";
+import { productsAPI } from "../../services/api";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 const EditProduct = () => {
   const { id } = useParams();
   const { t } = useLanguage();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    image: '',
-    category: '',
-    stock: '',
+    name_en: "",
+    name_es: "",
+    description_en: "",
+    description_es: "",
+    price: "",
+    imageUrl: "",
+    category: "",
   });
+
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchProduct();
@@ -29,18 +32,20 @@ const EditProduct = () => {
     try {
       setLoading(true);
       const response = await productsAPI.getById(id);
-      const product = response.data;
+      const product = response.data.data;
+
       setFormData({
-        name: product.name || '',
-        description: product.description || '',
-        price: product.price?.toString() || '',
-        image: product.image || '',
-        category: product.category || '',
-        stock: product.stock?.toString() || '',
+        name_en: product.name_en || "",
+        name_es: product.name_es || "",
+        description_en: product.description_en || "",
+        description_es: product.description_es || "",
+        price: product.price?.toString() || "",
+        imageUrl: product.imageUrl || "",
+        category: product.category || "",
       });
     } catch (error) {
-      console.error('Error fetching product:', error);
-      setError(t('admin.editProduct.error'));
+      console.error("Error fetching product:", error);
+      setError(t("admin.editProduct.error"));
     } finally {
       setLoading(false);
     }
@@ -56,21 +61,26 @@ const EditProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    setError('');
+    setError("");
 
     try {
       const productData = {
-        ...formData,
+        name_en: formData.name_en,
+        name_es: formData.name_es,
+        description_en: formData.description_en,
+        description_es: formData.description_es,
+        category: formData.category,
+        imageUrl: formData.imageUrl,
         price: parseFloat(formData.price),
-        stock: parseInt(formData.stock),
       };
 
       await productsAPI.update(id, productData);
-      alert(t('admin.editProduct.success'));
-      navigate('/admin/products');
+
+      alert(t("admin.editProduct.success"));
+      navigate("/admin/products");
     } catch (error) {
-      console.error('Error updating product:', error);
-      setError(t('admin.editProduct.error'));
+      console.error("Error updating product:", error);
+      setError(error?.response?.data?.message || t("admin.editProduct.error"));
     } finally {
       setSubmitting(false);
     }
@@ -93,13 +103,18 @@ const EditProduct = () => {
           to="/admin/products"
           className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors group"
         >
-          <ArrowLeft className="mr-2 transition-transform group-hover:-translate-x-1" size={18} />
+          <ArrowLeft
+            className="mr-2 transition-transform group-hover:-translate-x-1"
+            size={18}
+          />
           <span>Back to Products</span>
         </Link>
 
         <div className="max-w-2xl">
           <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Edit Product</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">
+              Edit Product
+            </h2>
 
             {error && (
               <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-xl border border-red-200">
@@ -108,29 +123,59 @@ const EditProduct = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* NAME EN */}
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Product Name
+                  Product Name (English)
                 </label>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="name_en"
+                  value={formData.name_en}
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all"
                 />
               </div>
 
+              {/* NAME ES */}
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Description
+                  Product Name (Spanish)
                 </label>
-                <textarea
-                  name="description"
-                  value={formData.description}
+                <input
+                  type="text"
+                  name="name_es"
+                  value={formData.name_es}
                   onChange={handleChange}
                   required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all"
+                />
+              </div>
+
+              {/* DESCRIPTION EN */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  Description (English)
+                </label>
+                <textarea
+                  name="description_en"
+                  value={formData.description_en}
+                  onChange={handleChange}
+                  rows="4"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all resize-none"
+                ></textarea>
+              </div>
+
+              {/* DESCRIPTION ES */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  Description (Spanish)
+                </label>
+                <textarea
+                  name="description_es"
+                  value={formData.description_es}
+                  onChange={handleChange}
                   rows="4"
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all resize-none"
                 ></textarea>
@@ -142,7 +187,9 @@ const EditProduct = () => {
                     Price
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600">$</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600">
+                      $
+                    </span>
                     <input
                       type="number"
                       name="price"
@@ -155,57 +202,46 @@ const EditProduct = () => {
                     />
                   </div>
                 </div>
-
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    Stock Quantity
+                    Category
                   </label>
                   <input
-                    type="number"
-                    name="stock"
-                    value={formData.stock}
+                    type="text"
+                    name="category"
+                    value={formData.category}
                     onChange={handleChange}
-                    required
-                    min="0"
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Category
-                </label>
-                <input
-                  type="text"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all"
-                />
-              </div>
+              {/* CATEGORY */}
 
+              {/* IMAGE */}
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
                   Image URL
                 </label>
                 <input
                   type="url"
-                  name="image"
-                  value={formData.image}
+                  name="imageUrl"
+                  value={formData.imageUrl}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all"
                 />
               </div>
 
+              {/* ACTIONS */}
               <div className="pt-6 border-t border-gray-200 flex gap-3">
                 <button
                   type="submit"
                   disabled={submitting}
                   className="flex-1 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold disabled:opacity-50"
                 >
-                  {submitting ? 'Saving...' : 'Save Changes'}
+                  {submitting ? "Saving..." : "Save Changes"}
                 </button>
+
                 <Link
                   to="/admin/products"
                   className="flex-1 text-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold"
