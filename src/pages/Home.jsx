@@ -8,24 +8,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Home = () => {
   const { t } = useLanguage();
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { isCustomer, isBrand,isAuthenticated } = useAuth();
-
-  useEffect(() => {
-    const fetchFeaturedProducts = async () => {
-      try {
-        const { data } = await productsAPI.getFeatured();
-        setFeaturedProducts((data?.data || []).slice(0, 6));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFeaturedProducts();
-  }, []);
+  const { isCustomer, isBrand, isAuthenticated, products,loading } = useAuth();
 
   return (
     <div className="bg-[#f8f6f2] text-[#111]">
@@ -108,7 +91,7 @@ const Home = () => {
             <div className="text-center py-16">Loading...</div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {featuredProducts.map((product) => (
+              {products.slice(0, 6).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

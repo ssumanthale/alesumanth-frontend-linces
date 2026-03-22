@@ -28,7 +28,9 @@ const Services = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-stone-100 rounded-full mb-8">
             <Sparkles size={16} className="text-gray-900" />
             <span className="text-sm font-medium text-gray-900">
-              Premium Manufacturing Partner
+              
+            {t("services.hero.title.manufacturing")}
+
             </span>
           </div>
 
@@ -207,7 +209,6 @@ const Services = () => {
         </button>
       </div>
 
-      <CTAButton>{t("services.final.cta")}</CTAButton>
       <SectionContainer background="dark" className="py-20">
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

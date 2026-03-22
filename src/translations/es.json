@@ -3,327 +3,282 @@
     "home": "Inicio",
     "products": "Productos",
     "services": "Servicios",
-    "about": "Acerca de",
+    "about": "Nosotros",
     "contact": "Contacto",
     "cart": "Carrito",
-    "login": "Iniciar Sesión",
+    "login": "Iniciar sesión",
     "register": "Registrarse",
-    "logout": "Cerrar Sesión",
-    "admin": "Administrador"
+    "logout": "Cerrar sesión",
+    "admin": "Admin"
   },
+
   "home": {
     "hero": {
-      "title": "Linces'CKF",
-      "subtitle": "Prendas de Seda Premium",
-      "description": "Descubre la mejor ropa de seda, elaborada artesanalmente con pasión y precisión. Eleva tu guardarropa con elegancia atemporal.",
-      "shopNow": "Comprar Ahora",
-      "learnMore": "Saber Más"
+      "title": "Seda de lujo,",
+      "subtitle": "Hecha a la perfección",
+      "description": "Prendas de seda atemporales diseñadas con precisión, elegancia y propósito.",
+      "shopNow": "Comprar colección",
+      "learnMore": "Nuestra historia",
+      "requestQuote": "Solicitar cotización"
+    },
+    "statement": "Creado con precisión, inspirado en la tradición, diseñado para la elegancia moderna.",
+    "why": {
+      "title": "Por qué elegirnos",
+      "quality": {
+        "title": "Calidad premium",
+        "desc": "Solo las mejores telas de seda, cuidadosamente seleccionadas e inspeccionadas."
+      },
+      "craft": {
+        "title": "Artesanía experta",
+        "desc": "Décadas de experiencia en la producción de prendas de seda."
+      },
+      "sustain": {
+        "title": "Proceso sostenible",
+        "desc": "Métodos ecológicos para un lujo responsable."
+      }
     },
     "featured": {
-      "title": "Productos Destacados",
-      "viewAll": "Ver Todos los Productos"
+      "title": "Colección destacada",
+      "viewAll": "Ver todo"
     },
-    "values": {
-      "title": "Por Qué Elegir Linces'CKF",
-      "quality": {
-        "title": "Calidad Premium",
-        "description": "Seda 100% auténtica, proveniente de los mejores proveedores del mundo"
-      },
-      "craftsmanship": {
-        "title": "Artesanía Experta",
-        "description": "Cada pieza es meticulosamente elaborada por artesanos calificados"
-      },
-      "sustainability": {
-        "title": "Sostenible",
-        "description": "Métodos de producción ecológicos que respetan nuestro planeta"
-      }
+    "b2b": {
+      "title": "Fabricación premium para marcas",
+      "desc": "Asóciate con nosotros para fabricación personalizada, marca privada y pedidos al por mayor.",
+      "cta": "Trabaja con nosotros"
+    },
+    "cta": {
+      "brandTitle": "Asóciate con nosotros",
+      "customerTitle": "Experimenta el verdadero lujo",
+      "brandDesc": "Colabora con un fabricante de seda confiable.",
+      "customerDesc": "Explora prendas de seda hechas a mano.",
+      "explore": "Explorar servicios",
+      "shop": "Comprar ahora"
     }
   },
+
   "products": {
-    "title": "Nuestros Productos",
+    "title": "Nuestra colección",
     "loading": "Cargando productos...",
-    "error": "Error al cargar productos. Por favor, intente de nuevo.",
+    "error": "Error al cargar los productos. Inténtalo de nuevo.",
     "noProducts": "No hay productos disponibles en este momento.",
-    "addToCart": "Agregar al Carrito",
-    "viewDetails": "Ver Detalles",
+    "addToCart": "Agregar al carrito",
+    "viewDetails": "Ver detalles",
     "price": "Precio",
-    "inStock": "En Stock",
+    "inStock": "Disponible",
     "outOfStock": "Agotado"
   },
+
   "productDetails": {
     "loading": "Cargando detalles del producto...",
-    "error": "Error al cargar detalles del producto.",
-    "addToCart": "Agregar al Carrito",
+    "error": "Error al cargar los detalles del producto.",
+    "addToCart": "Agregar al carrito",
     "description": "Descripción",
     "specifications": "Especificaciones",
     "material": "Material",
-    "careInstructions": "Instrucciones de Cuidado",
-    "backToProducts": "Volver a Productos"
+    "careInstructions": "Instrucciones de cuidado",
+    "backToProducts": "Volver a la colección"
   },
+
   "services": {
     "hero": {
       "title": {
+        "manufacturing": "Socio de fabricación premium",
         "line1": "Da vida a tu visión",
         "line2": ""
       },
-      "description": "Asóciate con Linces'CKF para fabricación de seda de clase mundial.",
+      "description": "Asóciate con Linces'CKF para fabricación de prendas de seda de clase mundial.",
       "ctaPrimary": "Solicitar cotización",
       "ctaSecondary": "Ver portafolio"
     },
 
     "capabilities": {
       "title": "Capacidades de fabricación",
-      "subtitle": "Soluciones completas para marcas de moda",
-
+      "subtitle": "Soluciones completas para marcas de moda que buscan producción de seda premium",
       "custom": {
-        "title": "Fabricación personalizada",
-        "desc": "Convierte tus diseños en realidad"
+        "title": "Fabricación de diseño personalizado",
+        "desc": "Convierte tus diseños en realidad con servicios expertos."
       },
       "private": {
         "title": "Producción de marca privada",
-        "desc": "Lanza tu propia línea de seda"
+        "desc": "Lanza tu propia línea de seda con nuestra experiencia."
       },
       "bulk": {
         "title": "Producción a gran escala",
-        "desc": "Escala tu producción fácilmente"
+        "desc": "Escala tu producción con instalaciones de alta capacidad."
       },
       "quality": {
         "title": "Control de calidad",
-        "desc": "Cada pieza es cuidadosamente inspeccionada"
+        "desc": "Cada pieza pasa por estrictos controles de calidad."
       }
     },
 
     "why": {
-      "title": "Por qué elegirnos",
-      "description": "Combinamos tradición y tecnología.",
+      "title": "Por qué asociarte con nosotros",
+      "description": "Combinamos la artesanía tradicional con la excelencia moderna.",
       "points": {
         "materials": {
           "title": "Materiales premium",
-          "desc": "Seda 100% auténtica"
+          "desc": "Seda 100% auténtica de proveedores certificados."
         },
         "timeline": {
-          "title": "Entregas confiables",
-          "desc": "Producción puntual"
+          "title": "Plazos confiables",
+          "desc": "Entregas puntuales con seguimiento transparente."
         },
         "logistics": {
           "title": "Logística global",
-          "desc": "Envíos internacionales"
+          "desc": "Envíos y gestión aduanera sin complicaciones."
         }
       }
     },
 
     "process": {
-      "title": "Nuestro proceso",
-      "subtitle": "Desde la idea hasta la entrega",
+      "title": "Nuestro proceso de producción",
+      "subtitle": "Un recorrido desde la idea hasta la entrega",
       "steps": {
         "step1": {
           "title": "Consulta de diseño",
-          "desc": "Comparte tu idea"
+          "desc": "Comparte tu visión con nuestro equipo."
         },
         "step2": {
-          "title": "Selección de tela",
-          "desc": "Elige materiales"
+          "title": "Selección de telas",
+          "desc": "Elige materiales premium y aprueba muestras."
         },
         "step3": {
-          "title": "Aprobación",
-          "desc": "Revisión final"
+          "title": "Creación y aprobación",
+          "desc": "Revisa prototipos y finaliza el diseño."
         },
         "step4": {
-          "title": "Producción",
-          "desc": "Producción y entrega"
+          "title": "Producción y entrega",
+          "desc": "Producción a gran escala con control de calidad."
         }
       }
     },
 
     "custom": {
-      "title": "¿Pedido personalizado?",
+      "title": "¿Necesitas un pedido personalizado?",
       "cta": "Solicitar cotización"
     },
 
     "final": {
-      "title": "¿Listo para comenzar?",
-      "subtitle": "Únete a marcas líderes",
-      "cta": "Comenzar ahora"
+      "title": "¿Listo para comenzar tu proyecto?",
+      "subtitle": "Únete a marcas que confían en Linces'CKF",
+      "cta": "Comenzar hoy"
     },
-    "title": "Servicios de Fabricación B2B",
-    "subtitle": "Asóciate con nosotros para la fabricación de prendas de seda premium",
-    "description": "Ofrecemos servicios integrales de fabricación para marcas que buscan crear productos de seda de alta calidad. Desde consultoría de diseño hasta producción final, manejamos cada paso con experiencia y cuidado.",
+
+    "title": "Servicios de fabricación B2B",
+    "subtitle": "Asóciate con nosotros para producción premium",
+    "description": "Ofrecemos servicios completos de fabricación de seda.",
     "features": {
-      "title": "Nuestros Servicios",
+      "title": "Nuestros servicios",
       "design": {
-        "title": "Consultoría de Diseño",
-        "description": "Trabaja con nuestro equipo de diseño para dar vida a tu visión"
+        "title": "Consultoría de diseño",
+        "description": "Trabaja con nuestro equipo creativo"
       },
       "production": {
-        "title": "Producción a Gran Escala",
-        "description": "Instalaciones de última generación para fabricación eficiente y de alta calidad"
+        "title": "Producción a gran escala",
+        "description": "Instalaciones modernas de alta calidad"
       },
       "quality": {
-        "title": "Control de Calidad",
-        "description": "Controles de calidad rigurosos en cada etapa de producción"
+        "title": "Control de calidad",
+        "description": "Revisión en cada etapa"
       },
       "logistics": {
-        "title": "Soporte Logístico",
-        "description": "Entrega sin problemas a tu ubicación en todo el mundo"
+        "title": "Logística",
+        "description": "Entrega global sin complicaciones"
       }
     },
     "quote": {
-      "title": "Solicitar Cotización",
-      "companyName": "Nombre de la Empresa",
-      "contactPerson": "Persona de Contacto",
-      "email": "Correo Electrónico",
+      "title": "Solicitar cotización",
+      "companyName": "Nombre de la empresa",
+      "contactPerson": "Persona de contacto",
+      "email": "Correo electrónico",
       "phone": "Teléfono",
-      "quantity": "Cantidad Estimada",
-      "description": "Descripción del Proyecto",
-      "submit": "Enviar Solicitud",
-      "success": "¡Su solicitud de cotización ha sido enviada exitosamente!",
-      "error": "Error al enviar solicitud de cotización. Por favor, intente de nuevo."
+      "quantity": "Cantidad estimada",
+      "description": "Descripción del proyecto",
+      "submit": "Enviar solicitud",
+      "success": "¡Solicitud enviada con éxito!",
+      "error": "Error al enviar la solicitud."
     }
   },
+
   "about": {
-    "title": "Acerca de Linces'CKF",
+    "title": "Sobre Linces'CKF",
+    "subtitle": "Creando prendas de seda atemporales con precisión, pasión y propósito.",
     "story": {
-      "title": "Nuestra Historia",
-      "content": "Fundada con una pasión por los textiles de lujo, Linces'CKF ha estado creando prendas de seda premium que combinan artesanía tradicional con diseño moderno. Cada pieza cuenta una historia de dedicación, calidad y elegancia atemporal."
+      "title": "Nuestra historia",
+      "content": "Creamos prendas de seda premium combinando tradición y diseño moderno."
     },
     "mission": {
-      "title": "Nuestra Misión",
-      "content": "Proporcionar las mejores prendas de seda mientras mantenemos prácticas sostenibles y apoyamos a las comunidades artesanales en todo el mundo."
+      "title": "Nuestra misión",
+      "content": "Ofrecer elegancia atemporal mediante artesanía sostenible."
     },
     "values": {
-      "title": "Nuestros Valores",
-      "quality": "Calidad Sin Compromisos",
-      "sustainability": "Responsabilidad Ambiental",
-      "craftsmanship": "Artesanía Artesanal",
-      "integrity": "Integridad Empresarial"
+      "title": "Nuestros valores",
+      "quality": "Calidad",
+      "sustainability": "Sostenibilidad",
+      "craftsmanship": "Artesanía",
+      "integrity": "Integridad"
+    },
+    "finalCTA": {
+      "title": "Asóciate con nosotros para fabricación premium de seda",
+      "work": "Trabaja con nosotros"
     }
   },
+
   "contact": {
     "title": "Contáctanos",
     "subtitle": "Nos encantaría saber de ti",
-    "email": "Correo Electrónico",
+    "email": "Correo",
     "phone": "Teléfono",
     "whatsapp": "WhatsApp",
     "address": "Dirección",
-    "hours": "Horario de Atención",
-    "hoursValue": "Lunes - Viernes: 9:00 AM - 6:00 PM",
+    "hours": "Horario",
+    "hoursValue": "Lun - Sáb: 9 AM - 6 PM",
     "form": {
-      "title": "Envíanos un mensaje",
+      "title": "Enviar mensaje",
       "name": "Nombre",
-      "email": "Correo Electrónico",
+      "email": "Correo electrónico",
       "message": "Mensaje",
-      "submit": "Enviar Mensaje",
-      "success": "¡Mensaje enviado exitosamente!",
-      "error": "Error al enviar mensaje. Por favor, intente de nuevo."
+      "submit": "Enviar mensaje",
+      "success": "¡Mensaje enviado!",
+      "error": "Error al enviar el mensaje"
     }
   },
+
   "cart": {
-    "title": "Carrito de Compras",
+    "title": "Tu carrito",
     "empty": "Tu carrito está vacío",
-    "continueShopping": "Continuar Comprando",
+    "continueShopping": "Seguir comprando",
     "subtotal": "Subtotal",
     "total": "Total",
-    "checkout": "Proceder al Pago",
-    "remove": "Eliminar",
-    "quantity": "Cantidad",
-    "update": "Actualizar",
-    "itemAdded": "¡Artículo agregado al carrito!"
+    "checkout": "Proceder al pago"
   },
+
   "checkout": {
     "title": "Pago",
-    "success": "¡Pedido Realizado Exitosamente!",
-    "message": "Gracias por tu compra. Tu pedido ha sido recibido y está siendo procesado.",
-    "orderNumber": "Número de Pedido",
-    "continueShopping": "Continuar Comprando"
+    "success": "¡Pedido realizado con éxito!",
+    "message": "Gracias por tu compra. Tu pedido está siendo procesado.",
+    "orderNumber": "Número de pedido",
+    "continueShopping": "Seguir comprando"
   },
-  "auth": {
-    "login": {
-      "title": "Iniciar Sesión",
-      "email": "Correo Electrónico",
-      "password": "Contraseña",
-      "submit": "Iniciar Sesión",
-      "noAccount": "¿No tienes una cuenta?",
-      "registerLink": "Regístrate aquí",
-      "error": "Credenciales inválidas. Por favor, intente de nuevo.",
-      "success": "¡Inicio de sesión exitoso!"
-    },
-    "register": {
-      "title": "Registrarse",
-      "name": "Nombre Completo",
-      "email": "Correo Electrónico",
-      "password": "Contraseña",
-      "confirmPassword": "Confirmar Contraseña",
-      "submit": "Registrarse",
-      "hasAccount": "¿Ya tienes una cuenta?",
-      "loginLink": "Inicia sesión aquí",
-      "error": "Error al registrarse. Por favor, intente de nuevo.",
-      "passwordMismatch": "Las contraseñas no coinciden.",
-      "success": "¡Registro exitoso!"
-    }
-  },
-  "admin": {
-    "login": {
-      "title": "Inicio de Sesión Administrativo",
-      "email": "Correo Electrónico",
-      "password": "Contraseña",
-      "submit": "Iniciar Sesión",
-      "error": "Credenciales de administrador inválidas."
-    },
-    "products": {
-      "title": "Gestión de Productos",
-      "addNew": "Agregar Nuevo Producto",
-      "edit": "Editar",
-      "delete": "Eliminar",
-      "confirmDelete": "¿Estás seguro de que deseas eliminar este producto?",
-      "noProducts": "No se encontraron productos.",
-      "deleteSuccess": "Producto eliminado exitosamente.",
-      "deleteError": "Error al eliminar producto."
-    },
-    "addProduct": {
-      "title": "Agregar Nuevo Producto",
-      "name": "Nombre del Producto",
-      "description": "Descripción",
-      "price": "Precio",
-      "image": "URL de Imagen",
-      "category": "Categoría",
-      "stock": "Cantidad en Stock",
-      "submit": "Agregar Producto",
-      "cancel": "Cancelar",
-      "success": "¡Producto agregado exitosamente!",
-      "error": "Error al agregar producto."
-    },
-    "editProduct": {
-      "title": "Editar Producto",
-      "loading": "Cargando producto...",
-      "submit": "Actualizar Producto",
-      "cancel": "Cancelar",
-      "success": "¡Producto actualizado exitosamente!",
-      "error": "Error al actualizar producto."
-    }
-  },
+
   "common": {
     "loading": "Cargando...",
-    "error": "Ocurrió un error",
+    "error": "Algo salió mal",
     "save": "Guardar",
     "cancel": "Cancelar",
     "delete": "Eliminar",
     "edit": "Editar",
-    "back": "Volver",
-    "submit": "Enviar",
-    "search": "Buscar",
-    "filter": "Filtrar",
-    "sort": "Ordenar",
-    "yes": "Sí",
-    "no": "No"
+    "back": "Volver"
   },
+
   "footer": {
-    "about": "Acerca de",
+    "about": "Nosotros",
     "services": "Servicios",
     "contact": "Contacto",
-    "privacyPolicy": "Política de Privacidad",
-    "termsOfService": "Términos de Servicio",
-    "copyright": "© 2024 Linces'CKF. Todos los derechos reservados.",
-    "followUs": "Síguenos",
-    "tagline": "Experimenta la Elegancia de la Seda con Linces'CKF"
+    "privacyPolicy": "Política de privacidad",
+    "termsOfService": "Términos de servicio",
+    "copyright": "© 2026 Linces'CKF. Todos los derechos reservados.",
+    "tagline": "Seda de lujo, hecha a la perfección"
   }
 }

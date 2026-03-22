@@ -7,20 +7,18 @@ const About = () => {
 
   return (
     <div className="bg-[#f8f6f2] text-[#111]">
-
       {/* HERO */}
       <div className="max-w-5xl mx-auto px-6 pt-20 pb-16 text-center">
         <h1 className="text-4xl md:text-6xl font-semibold tracking-tight leading-tight">
           {t("about.title")}
         </h1>
         <p className="mt-6 text-gray-500 max-w-2xl mx-auto leading-relaxed">
-          Crafting timeless silk garments with precision, passion, and purpose.
+          {t("about.subtitle")}
         </p>
       </div>
 
       {/* IMAGE + STORY */}
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pb-20">
-        
         {/* IMAGE */}
         <div className="overflow-hidden rounded-2xl">
           <img
@@ -58,10 +56,12 @@ const About = () => {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
-
           <div className="group">
             <div className="flex justify-center mb-5">
-              <Award size={28} className="text-gray-700 group-hover:text-black transition" />
+              <Award
+                size={28}
+                className="text-gray-700 group-hover:text-black transition"
+              />
             </div>
             <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-2">
               Excellence
@@ -73,7 +73,10 @@ const About = () => {
 
           <div className="group">
             <div className="flex justify-center mb-5">
-              <Heart size={28} className="text-gray-700 group-hover:text-black transition" />
+              <Heart
+                size={28}
+                className="text-gray-700 group-hover:text-black transition"
+              />
             </div>
             <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-2">
               Responsibility
@@ -85,7 +88,10 @@ const About = () => {
 
           <div className="group">
             <div className="flex justify-center mb-5">
-              <Users size={28} className="text-gray-700 group-hover:text-black transition" />
+              <Users
+                size={28}
+                className="text-gray-700 group-hover:text-black transition"
+              />
             </div>
             <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-2">
               Craft
@@ -97,7 +103,10 @@ const About = () => {
 
           <div className="group">
             <div className="flex justify-center mb-5">
-              <Target size={28} className="text-gray-700 group-hover:text-black transition" />
+              <Target
+                size={28}
+                className="text-gray-700 group-hover:text-black transition"
+              />
             </div>
             <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-2">
               Integrity
@@ -106,21 +115,18 @@ const About = () => {
               {t("about.values.integrity")}
             </p>
           </div>
-
         </div>
       </div>
 
       {/* CTA SECTION (NEW - VERY IMPORTANT) */}
       <div className="bg-black text-white py-20 text-center">
         <h2 className="text-3xl md:text-4xl font-medium mb-6">
-          Partner with us for premium silk manufacturing
+          {t("about.finalCTA.title")}
         </h2>
         <button className="px-8 py-3 rounded-full bg-white text-black text-sm tracking-wide hover:bg-gray-200 transition">
-          Work With Us
+          {t("about.finalCTA.work")}
         </button>
       </div>
-
-      <Footer />
     </div>
   );
 };
