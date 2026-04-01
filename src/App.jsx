@@ -2,10 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
-import Navigation from "./components/Navigation";
-import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
-
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
