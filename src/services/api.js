@@ -104,4 +104,11 @@ export const cartAPI = {
 
   remove: (id) => apiClient.delete(`/cart/remove/${id}`),
 };
+
+export const addressAPI = {
+  getAddress: () => apiClient.get("/address"),
+  updateAddress: (addressData) => apiClient.put("/address", addressData),
+  createAddress: (addressData) => apiClient.post("/address", addressData),
+};
+
 export default apiClient;

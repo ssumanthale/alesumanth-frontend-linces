@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { authAPI, productsAPI } from "../services/api";
+import { authAPI, productsAPI, addressAPI } from "../services/api";
 import { useLanguage } from "./LanguageContext";
 
 const AuthContext = createContext();
@@ -22,6 +22,8 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [products, setProducts] = useState([]);
+  const [address, setAddress] = useState(null);
+  const [addressLoading, setAddressLoading] = useState(false);
 
   useEffect(() => {
     const initAuth = async () => {
@@ -31,6 +33,7 @@ export const AuthProvider = ({ children }) => {
       if (storedToken && storedUser) {
         setToken(storedToken);
         setUser(JSON.parse(storedUser));
+        fetchAddress();
       }
 
       setLoading(false);
@@ -38,6 +41,49 @@ export const AuthProvider = ({ children }) => {
 
     initAuth();
   }, []);
+
+  const fetchAddress = async () => {
+    try {
+      setAddressLoading(true);
+      const response = await addressAPI.getAddress();
+      setAddress(response.data.data);
+    } catch (error) {
+      console.error("Error fetching address:", error);
+      setAddress(null);
+    } finally {
+      setAddressLoading(false);
+    }
+  };
+
+  const updateAddress = async (addressData) => {
+    try {
+      const response = await addressAPI.updateAddress(addressData);
+      const updatedAddress = response.data.data;
+      setAddress(updatedAddress);
+      return { success: true, data: updatedAddress };
+    } catch (error) {
+      console.error("Error updating address:", error);
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to update address",
+      };
+    }
+  };
+
+  const createAddress = async (addressData) => {
+    try {
+      const response = await addressAPI.createAddress(addressData);
+      const newAddress = response.data.data;
+      setAddress(newAddress);
+      return { success: true, data: newAddress };
+    } catch (error) {
+      console.error("Error creating address:", error);
+      return {
+        success: false,
+        error: error.response?.data?.message || "Failed to create address",
+      };
+    }
+  };
 
   const login = async (email, password, isAdmin = false) => {
     try {
@@ -102,6 +148,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     setToken(null);
     setUser(null);
+    setAddress(null);
   };
 
   const isAdmin = () => {
@@ -145,6 +192,11 @@ export const AuthProvider = ({ children }) => {
     isCustomer,
     products,
     error,
+    address,
+    addressLoading,
+    updateAddress,
+    createAddress,
+    fetchAddress,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
