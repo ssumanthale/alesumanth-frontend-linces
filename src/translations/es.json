@@ -9,7 +9,8 @@
     "login": "Iniciar sesión",
     "register": "Registrarse",
     "logout": "Cerrar sesión",
-    "admin": "Admin"
+    "admin": "Admin",
+    "settings": "Configuración"
   },
 
   "home": {

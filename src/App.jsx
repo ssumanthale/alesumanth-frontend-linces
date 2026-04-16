@@ -26,6 +26,7 @@ import AdminQuotes from "./pages/admin/AdminQuotes";
 import AdminQuoteDetails from "./pages/admin/AdminQuoteDetails";
 import MainLayout from "./layouts/MainLayout";
 import OrderSuccess from "./pages/OrderSuccess";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/settings" element={<Settings />} />
 
                     <Route
                       path="/cart"

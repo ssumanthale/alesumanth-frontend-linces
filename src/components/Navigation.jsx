@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, Menu, X, Globe, Package, FileText } from "lucide-react";
+import { ShoppingCart, Menu, X, Globe, Package, FileText, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -118,12 +118,18 @@ const Navigation = () => {
                       )}
                     </Link>
 
-                    {/* ORDERS */}
                     <Link
                       to="/orders"
                       className="hidden md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
                     >
                       <Package size={20} />
+                    </Link>
+
+                    <Link
+                      to="/settings"
+                      className="flex md:flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 hover:shadow-sm transition"
+                    >
+                      <Settings size={20} />
                     </Link>
                   </>
                 )}
@@ -222,6 +228,7 @@ const Navigation = () => {
                   My Quotes
                 </Link>
               )}
+
 
               {isAdmin() && (
                 <Link
