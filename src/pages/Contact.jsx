@@ -42,28 +42,29 @@ const Contact = () => {
   return (
     <div className="bg-[#f8f6f2] min-h-screen py-20 px-6">
       <div className="max-w-7xl mx-auto">
-
         {/* HEADER */}
-        <div className="text-center mb-20 max-w-2xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-[#111]">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-[#111]">
             {t("contact.title")}
           </h1>
-          <p className="text-gray-500 mt-4 leading-relaxed">
+          <p className="mt-4 text-base md:text-lg text-gray-500 leading-8">
             {t("contact.subtitle")}
           </p>
         </div>
 
-        {/* GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-
           {/* LEFT - INFO */}
           <div className="space-y-10">
-
             <div className="flex items-start gap-4">
               <Mail size={20} className="text-gray-500 mt-1" />
               <div>
-                <p className="text-sm text-gray-400 uppercase tracking-widest">Email</p>
-                <a href="mailto:info@lincesckf.com" className="text-lg text-[#111] hover:opacity-70 transition">
+                <p className="text-sm text-gray-400 uppercase tracking-widest">
+                  Email
+                </p>
+                <a
+                  href="mailto:info@lincesckf.com"
+                  className="text-lg text-[#111] hover:opacity-70 transition"
+                >
                   info@lincesckf.com
                 </a>
               </div>
@@ -72,7 +73,9 @@ const Contact = () => {
             <div className="flex items-start gap-4">
               <Phone size={20} className="text-gray-500 mt-1" />
               <div>
-                <p className="text-sm text-gray-400 uppercase tracking-widest">Phone</p>
+                <p className="text-sm text-gray-400 uppercase tracking-widest">
+                  Phone
+                </p>
                 <p className="text-lg text-[#111]">+1 (234) 567-890</p>
               </div>
             </div>
@@ -80,7 +83,9 @@ const Contact = () => {
             <div className="flex items-start gap-4">
               <MessageSquare size={20} className="text-gray-500 mt-1" />
               <div>
-                <p className="text-sm text-gray-400 uppercase tracking-widest">WhatsApp</p>
+                <p className="text-sm text-gray-400 uppercase tracking-widest">
+                  WhatsApp
+                </p>
                 <a
                   href="https://wa.me/1234567890"
                   target="_blank"
@@ -95,7 +100,9 @@ const Contact = () => {
             <div className="flex items-start gap-4">
               <MapPin size={20} className="text-gray-500 mt-1" />
               <div>
-                <p className="text-sm text-gray-400 uppercase tracking-widest">Address</p>
+                <p className="text-sm text-gray-400 uppercase tracking-widest">
+                  Address
+                </p>
                 <p className="text-lg text-[#111]">
                   123 Silk Avenue, Fashion District, NY
                 </p>
@@ -105,18 +112,16 @@ const Contact = () => {
             <div className="flex items-start gap-4">
               <Clock size={20} className="text-gray-500 mt-1" />
               <div>
-                <p className="text-sm text-gray-400 uppercase tracking-widest">Hours</p>
-                <p className="text-lg text-[#111]">
-                  {t("contact.hoursValue")}
+                <p className="text-sm text-gray-400 uppercase tracking-widest">
+                  Hours
                 </p>
+                <p className="text-lg text-[#111]">{t("contact.hoursValue")}</p>
               </div>
             </div>
-
           </div>
 
           {/* RIGHT - FORM */}
           <div className="bg-white rounded-2xl p-10 border border-gray-100">
-
             <h2 className="text-2xl font-medium mb-8 tracking-tight">
               {t("contact.form.title")}
             </h2>
@@ -134,7 +139,6 @@ const Contact = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-
               <input
                 type="text"
                 name="name"
@@ -172,9 +176,16 @@ const Contact = () => {
               >
                 {loading ? t("common.loading") : t("contact.form.submit")}
               </button>
-
             </form>
           </div>
+        </div>
+        <div className="mb-14">
+          <iframe
+            title="Contact location"
+            src="https://www.google.com/maps?q=123 Silk Avenue, Fashion District, NY&output=embed"
+            className="w-full h-72 rounded-[28px] border border-gray-200 shadow-sm"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
